@@ -60,7 +60,9 @@
         xhr.onload = function() {
             if (xhr.status == 200) {
                 $("#clues").append($(xhr.response))
-                $("#newClue")[0].reset()
+                $("#newClue .clue_name").val("")
+                $("#newClue .clue_value").val("")
+                $("#newClue #clue_text").val("")
             } else {
                 $("#clue-cont").html($(xhr.response))
                 $("#newClue").submit(sub)
