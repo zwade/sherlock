@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from .forms import AuthenticationForm, UserCreationForm
+from django.views.generic import View
+from ..forms import AuthenticationForm, UserCreationForm
 
 class login_view(View):
     def get(self, request):
