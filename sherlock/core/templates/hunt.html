@@ -27,6 +27,11 @@
             <div class="card">
                 <a href="{% url 'view_hunt_slideshow' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Image Stream</a>
             </div>
+            {% if hunt.started %}
+            <div class="card">
+                <a href="{% url 'view_hunt_scoreboard' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Scoreboard</a>
+            </div>
+            {% endif %}
             {% include 'participants.html' %}
         </div>
     </div>
