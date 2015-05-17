@@ -11,7 +11,11 @@
                         {% if active_hunts %}
                             <div class="collection cyan-text">
                                 {% for hunt in active_hunts %}
-                                    <a href="{% url 'view_hunt' hunt.slug %}" class="collection-item cyan-text">{{ hunt.name }}</a>
+                                    <a href="{% url 'view_hunt' hunt.slug %}" class="collection-item cyan-text">
+                                        <div>{{ hunt.name }}</div>
+                                        <div class="grey-text">{{ hunt.owner|capfirst }} &#8226; {{ hunt.start_time }} &ndash; {{ hunt.end_time }}</div>
+                                        <div class="black-text">{{ hunt.description|truncatechars:200 }}</div>
+                                    </a>
                                 {% endfor %}
                             </div>
                         {% endif %}
