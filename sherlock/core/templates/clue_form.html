@@ -4,17 +4,17 @@
     <div class="row">
         <div class="input-field col s9">
             <input name="name" type="text" class="clue_name"></input>
-            <label class="white-text" for="clue_name">Clue Name{% for error in clue.name.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
+            <label class="white-text" for="clue_name" data-val="Clue Name">Clue Name{% for error in clue.name.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
         </div>
         <div class="input-field col s3">
-            <input name="points" type="number" class="clue_value"></input>
-            <label class="white-text" for="clue_value" value="10">Point Value</label>
+            <input name="points" type="number" class="clue_value" ></input>
+            <label class="white-text" for="clue_value" value="10" data-val="Point Value">Point Value{% for error in clue.points.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
             <textarea name="text" id="clue_desc" length="120" class="materialize-textarea"></textarea>
-            <label for="clue_desc" class="white-text">Description (Optional)</label>
+            <label for="clue_desc" class="white-text" data-val="Description (Optional)">Description (Optional){% for error in clue.text.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
         </div>
     </div>
     <div class="row">

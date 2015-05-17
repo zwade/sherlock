@@ -1,20 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block scripts %}
-    {{ block.super }}
-    <script src="{% static 'js/vendor/lolliclock.js' %}"></script>
-    <script>
-        $(function(){
-            $('.timepicker').lolliclock();
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 15
-            });
-        })
-    </script>
-{% endblock %}
-
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/vendor/lolliclock.css' %}" />
@@ -29,7 +15,7 @@
                     <span class="card-title">Participants</span>
                     <br>
                     Invite friends with this link:
-                    <input type="text" value="{{ request.META.HTTP_HOST }}{% url 'view_hunt_short' hunt.slug %}">
+                    <input type="text" disabled class="grey-text text-lighten-2" value="{{ request.META.HTTP_HOST }}{% url 'view_hunt_short' hunt.slug %}">
 
                     <br>
                     {% if hunt.participants.all %}
@@ -112,17 +98,19 @@
 
 {% block scripts %}
 {{ block.super }}
+<script src="{% static 'js/vendor/lolliclock.js' %}"></script>
 <script>
     $('.datepicker').pickadate({
         selectMonths: true,
         selectYears: 15
     });
+    $("#newClue label").click(function() {$(this).text($(this).data("val"))})
     var sub = function(e) {
         e.preventDefault()
         console.log(this)
         var fd = new FormData(this)
         var xhr = new XMLHttpRequest()
-        xhr.open("POST",window.location.pathname+"clues/new")
+        xhr.open("POST",window.location.pathname.slice(0,-4)+"clues/new")
         xhr.send(fd)
         xhr.onload = function() {
             if (xhr.status == 200) {
@@ -130,9 +118,14 @@
             } else {
                 $("#clue-cont").html($(xhr.response))
                 $("#newClue").submit(sub)
+                $("#newClue label").click(function() {$(this).text($(this).data("val"))})
             }
         }
     }
-    $("#newClue").submit(sub)
+$("#newClue").submit(sub)
+$(function(){
+    $('.timepicker').lolliclock();
+})
 </script>
 {% endblock %}
+
