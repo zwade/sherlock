@@ -51,7 +51,7 @@
         var clueinp = $('#clue-id')
         var cluetit = $('#clue-title')
         var cluetxt = $('#clue-text')
-        $('.modal-trigger').on('click', function(e) {
+        $('.modal-trigger:not(".disabled")').on('click', function(e) {
             clueinp.val($(e.target).data('clue'))
             cluetit.val($(e.target).data('title'))
             cluetxt.val($(e.target).data('text'))
@@ -60,8 +60,15 @@
         form.submit(function(e) {
             var fd = new FormData(form[0])
             var xhr = new XMLHttpRequest()
+            var id = $('#clue-id').val()
             xhr.open("POST", "hunts/submit")
             xhr.send(fd)
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    $('li[data-clue="'+id+'"]').addClass("grey lighten-2")
+                    $('li[data-clue="'+id+'"]').unbind('click')
+                }
+            }
             $('#captured').val('')
             $('#caption').val('')
             e.preventDefault()
