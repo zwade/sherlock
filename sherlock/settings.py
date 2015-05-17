@@ -41,7 +41,7 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-SHOW_DEBUG_TOOLBAR = True
+SHOW_DEBUG_TOOLBAR = DEBUG and (os.getenv("DDT", "TRUE") == "TRUE")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
