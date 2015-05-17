@@ -6,6 +6,7 @@ from .views import game
 huntpatterns = [
     url(r'^$', game.HuntView.as_view(), name='view_hunt'),
     url(r'^slideshow$', game.Slideshow.as_view(), name='view_hunt_slideshow'),
+    url(r'^scoreboard$', game.Scoreboard.as_view(), name='view_hunt_scoreboard'),
     url(r'^images$', game.HuntImageStream.as_view(), name='get_image_stream'),
     url(r'^join$', game.JoinHunt.as_view(), name='join_hunt'),
     url(r'^edit$', game.EditHuntView.as_view(), name='edit_hunt'),

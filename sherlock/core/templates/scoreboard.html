@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="center-align">
+    <div class="row">
+        <div class="col l8 offset-l2 m12 s12">
+            <div class="card green darken 1">
+                <br>
+                <span class="card-title">Scoreboard</span>
+                <div class="card-content">
+                    <form>
+                        <div class="card white">
+                            <table class="centered striped">
+                                <thead>
+                                    <tr>
+                                        <th data-field='name'>Name</th>
+                                        <th data-field='score'>Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body">
+                                {% for k,v in scores %}
+                                <tr><td>{{ k }}</td><td>{{ v }}</td></tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      
+{% endblock %}
+    	

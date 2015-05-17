@@ -14,9 +14,27 @@ body {
 }
 
 #slider {
-    transition: width 5s linear, height 5s linear;
 }
-
+.m-slider {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out; 
+    opacity:0;
+}
+.m-card {
+    -webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -ms-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+    overflow:hidden;
+    opacity:1;
+}
+.m-card img {
+    width:100%
+}
 .modal-trigger {
     cursor: pointer;
 }
@@ -52,4 +70,19 @@ nav ul li:hover, nav ul li.active {
     .pipe-logo {
         width: 44px;
     }
+}
+
+#imgul {
+    height: 600px;
+}
+
+#slider {
+    height: 580px;
+}
+
+.btn {
+    z-index: 10;
+}
+.indicator-item {
+    z-index: 10;
 }
