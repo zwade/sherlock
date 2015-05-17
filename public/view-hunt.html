@@ -27,26 +27,18 @@
 				<div class="col offset-s0 offset-m0 m12 l7 s12">
 					<div class="card green darken-1">
 						<div class="card-content white-text">
-							<span class="card-title">My Hunts</span>
-							<div class="collection cyan-text">
-								<a href="#" class="collection-item cyan-text">Hunt 1</a>
-								<a href="#" class="collection-item cyan-text">Hunt 2</a>
-								<a href="#" class="collection-item cyan-text">Hunt 3</a>
-								<a href="#" class="collection-item cyan-text">Hunt 4</a>
-							</div>
-							<div class="collection">
-								<a href="#" class="collection-item cyan-text">Old Hunt 1</a>
-								<a href="#" class="collection-item cyan-text">Old Hunt 2</a>
-								<a href="#" class="collection-item cyan-text">Old Hunt 3</a>
-								<a href="#" class="collection-item cyan-text">Old Hunt 4</a>
-							</div>
+							<span class="card-title">{{ hunt.name }}</span>
+                            <div class="grey-text text-lighten-2">{{ hunt.owner }}</div> 
+                            <div class="card-body">
+                                {{ hunt.description }}
+                            </div>
 						</div>
 					</div>
 				</div>
 				<div class="col offset-l1 m12 l4 s12">
 					<div class="card green darken-1">
 						<div class="card-content white-text">
-							<span class="card-title">Create</span>
+							<span class="card-title">Join</span>
 							<!--div class="row">
 								<div class="white-text input-field col s12 m12 l8">
 									<input type="text" id="room_name">
@@ -55,18 +47,19 @@
 								<a class="cyan btn-level waves-effect waves-light btn col s12 m12 l4">Join Hunt</a>
 							</div-->
 							<div class="row">
-								<a class="cyan waves-effect waves-light btn col s12">Create Hunt</a>
+                                <form action="/join" method="POST">
+                                    <button type="submit" name="{{ hunt.id }}" value="true" class="cyan waves-effect waves-light btn col s12">Join this Hunt</button>
+                                </form>
 							</div>
 						</div>
 					</div>
 					<div class="card green darken-1">
 						<div class="card-content white-text">
-							<span class="card-title">Hosted Hunts</span>
+							<span class="card-title">Participants</span>
                             <div class="collection">
-                                <a href="#" class="collection-item cyan-text">My Hunt 1</a>
-                                <a href="#" class="collection-item cyan-text">My Hunt 2</a>
-                                <a href="#" class="collection-item cyan-text">My Hunt 3</a>
-                                <a href="#" class="collection-item cyan-text">My Hunt 4</a>
+                                {% for p in hunt.participants %}
+                                <div class="collection-item cyan-text">{{ p.name }}</div>
+                                {% endfor %}
                             </div>
 						</div>
 					</div>
