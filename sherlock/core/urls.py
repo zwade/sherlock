@@ -7,7 +7,7 @@ huntpatterns = [
     url(r'^$', game.HuntView.as_view(), name='view_hunt'),
     url(r'^edit$', game.EditHuntView.as_view(), name='edit_hunt'),
     url(r'^clues/new$', game.NewClueAjax.as_view(), name='add_clue'),
-    url(r'^clues$', game.CluesView.as_view(), name='view_clues')
+    url(r'^clues$', game.CluesView.as_view(), name='view_clues'),
     url(r'^submit$', game.SubmissionAjax.as_view(), name='submit_image')
 ]
 
