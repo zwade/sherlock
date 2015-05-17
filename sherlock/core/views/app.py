@@ -8,10 +8,22 @@ from . import LoginRequiredMixin
 
 logger = logging.getLogger(__name__)
 
+
 def index_view(request):
     if not request.user.is_authenticated():
         return render(request, "splash.html")
-    return render(request, "hunts.html")
+
+    joined_hunts = request.user.joined_hunts.all()
+    active_hunts = [h for h in joined_hunts if h.active]
+    inactive_hunts = [h for h in joined_hunts if not h.active]
+
+    context = {
+        "joined_hunts": joined_hunts,
+        "active_hunts": active_hunts,
+        "inactive_hunts": inactive_hunts
+    }
+    return render(request, "hunts.html", context)
+
 
 class SettingsView(LoginRequiredMixin, View):
     def get(self, request):

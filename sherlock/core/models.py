@@ -4,8 +4,10 @@ import random
 import string
 from django.utils import timezone as datetime
 
+
 def random_string(N):
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(N))
+
 
 class Hunt(models.Model):
     owner = models.ForeignKey(User, related_name='owned_hunts')
@@ -31,6 +33,7 @@ class Hunt(models.Model):
     def __str__(self):
         return self.name
 
+
 class Clue(models.Model):
     name = models.CharField(max_length=200)
     text = models.TextField(max_length=500, blank=True)
@@ -39,7 +42,7 @@ class Clue(models.Model):
     hunt = models.ForeignKey(Hunt, related_name='clues')
 
     def __str__(self):
-        return "{} (Hunt '{}')".format(self.name, self.hunt.name)
+        return "Clue '{}' of Hunt '{}'".format(self.name, self.hunt.name)
 
 
 class Submission(models.Model):
@@ -54,4 +57,4 @@ class Submission(models.Model):
     user = models.ForeignKey(User, related_name='submissions')
 
     def __str__(self):
-        return "User '{}' to Clue '{}')".format(self.user, self.clue)
+        return "Submission by User '{}' to '{}'".format(self.user, self.clue)

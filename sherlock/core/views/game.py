@@ -99,7 +99,8 @@ class SubmissionAjax(LoginRequiredMixin, View):
 
             return http.HttpResponse()
 
-        return HttpResponse(status=400)
+        return http.HttpResponse(status=400)
+
 
 class JoinHunt(LoginRequiredMixin, View):
     def post(self, request, slug):

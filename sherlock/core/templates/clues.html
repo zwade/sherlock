@@ -9,7 +9,7 @@
                     <span class="card-title">{{ hunt.name }}</span>
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
-                            <li class="collection-item modal-trigger {% if clue.solved %}disabled{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">Clue Name 1</li>
+                            <li class="collection-item modal-trigger {% if clue.solved %}disabled{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">{{ clue.name }}</li>
                         {% endfor %}
                     </ul>
                 </div>
