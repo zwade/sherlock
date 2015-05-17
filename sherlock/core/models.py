@@ -25,7 +25,7 @@ class Hunt(models.Model):
     def started(self):
         return datetime.now() > self.start_time
 
-    def running(self):
+    def active(self):
         return self.start_time < datetime.now() < self.end_time
 
     def __str__(self):
