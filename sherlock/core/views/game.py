@@ -2,6 +2,7 @@ import logging
 from django import http
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.forms.models import model_to_dict
 from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
@@ -46,7 +47,9 @@ class EditHuntView(LoginRequiredMixin, View):
         if hunt.owner != request.user:
             return redirect('view_hunt', slug=slug)
 
-        return render(request, 'edit_hunt.html', {'edit': HuntForm(hunt), 'clue': ClueForm(), 'hunt': hunt, 'clues': hunt.clues.all()})
+        form = HuntForm(model_to_dict(hunt))
+
+        return render(request, 'edit_hunt.html', {'edit': form, 'clue': ClueForm(), 'hunt': hunt, 'clues': hunt.clues.all()})
 
 
 class NewClueAjax(LoginRequiredMixin, View):
