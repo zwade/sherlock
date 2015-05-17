@@ -29,9 +29,9 @@
                    <div id="clue-cont">
                    {% include "clue_form.html" %}
                    </div>
-                   <div id="clues" class="collection cyan-text">
+                   <div id="clues" {% if not clues %} style="display:none" {% endif %}class="collection cyan-text">
                         {% for clue in clues %}
-                        {% include "clue_row.html" %}
+                            {% include "clue_row.html" %}
                         {% endfor %}
                     </div>
                 </div>
@@ -63,6 +63,7 @@
                 $("#newClue .clue_name").val("")
                 $("#newClue .clue_value").val("")
                 $("#newClue #clue_text").val("")
+                $("#clues").css("display", "")
             } else {
                 $("#clue-cont").html($(xhr.response))
                 $("#newClue").submit(sub)
