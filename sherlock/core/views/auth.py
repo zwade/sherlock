@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
-from .forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login
+from ..forms import AuthenticationForm, UserCreationForm
+
 
 class login_view(View):
     def get(self, request):
@@ -20,6 +21,7 @@ class login_view(View):
             return redirect(next_url)
 
         return render(request, 'login.html', {'form': form})
+
 
 class register_view(View):
     def get(self, request):
@@ -41,6 +43,7 @@ class register_view(View):
             return redirect('/')
 
         return render(request, 'register.html', {form: form})
+
 
 def index_view(request):
     if not request.user.is_authenticated():
