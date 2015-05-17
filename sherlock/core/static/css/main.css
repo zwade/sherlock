@@ -1,5 +1,5 @@
 body {
-    background-color: #e0f7fa 
+    background-color: #e0f7fa
 }
 .m-left {
 	margin-left: 20px;
@@ -19,4 +19,10 @@ body {
 
 .modal-trigger {
     cursor: pointer;
+}
+
+
+#djDebug [type="checkbox"]:not(:checked), #djDebug [type="checkbox"]:checked {
+    position: inherit;
+    left: inherit;
 }
