@@ -87,6 +87,10 @@ class CluesView(LoginRequiredMixin, View):
             return redirect('view_hunt', slug=slug)
 
         hunt = Hunt.objects.get(slug=slug)
+
+        if not hunt.started():
+            return redirect('view_hunt', slug=slug)
+
         clues = dict((x.id, x) for x in Clue.objects.filter(hunt__slug=slug))
 
         for submission in Submission.objects.filter(clue__in=clues, user=request.user):
