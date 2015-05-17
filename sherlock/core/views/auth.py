@@ -3,7 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
-from ..forms import AuthenticationForm, UserCreationForm
+from ..forms.auth import AuthenticationForm, UserCreationForm
 
 logger = logging.getLogger(__name__)
 
