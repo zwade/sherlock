@@ -20,7 +20,7 @@ class LoginView(View):
         if form.is_valid():
             login(request, form.get_user())
 
-            next_url = request.GET.get('next', "index")
+            next_url = request.GET.get('next', 'index')
 
             return redirect(next_url)
 

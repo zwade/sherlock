@@ -21,10 +21,7 @@
                 {% elif joined and hunt.started %}
                     <a href="{% url 'view_clues' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Participate</a>
                 {% else %}
-                    <form action="{% url 'join_hunt' hunt.slug %}" method="POST">
-                        {% csrf_token %}
-                        <button type="submit" name="{{ hunt.id }}" value="true" class="cyan waves-effect waves-light btn col s12">Join this Hunt</button>
-                    </form>
+                    <a href="{% url 'join_hunt' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Join this Hunt</a>
                 {% endif %}
             </div>
             <div class="card">
