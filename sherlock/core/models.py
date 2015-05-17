@@ -48,7 +48,7 @@ class Clue(models.Model):
 class Submission(models.Model):
     image = models.ImageField(upload_to='submissions')
     time = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=200)
+    comment = models.CharField(max_length=200, blank=True)
 
     valid = models.BooleanField(default=True)
     verified = models.BooleanField(default=False)

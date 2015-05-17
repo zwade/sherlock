@@ -20,7 +20,7 @@ body {
     -moz-transition: all 1s ease-in-out;
     -ms-transition: all 1s ease-in-out;
     -o-transition: all 1s ease-in-out;
-    transition: all 1s ease-in-out; 
+    transition: all 1s ease-in-out;
     opacity:0;
 }
 .m-card {
@@ -80,3 +80,15 @@ nav ul li:hover, nav ul li.active {
 .indicator-item {
     z-index: 10;
 }
+
+.collection-item.clue {
+    margin-left: -11px;
+}
+.collection-item.clue i {
+    visibility: hidden;
+}
+
+.collection-item.clue-solved i {
+    visibility: visible;
+}
+
