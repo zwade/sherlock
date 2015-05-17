@@ -3,14 +3,12 @@ from django.contrib.auth.models import User
 import random
 import string
 
-
 def random_string(N):
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(N))
 
-
 class Hunt(models.Model):
-    owner = models.ForeignKey(User, related_name="hunts")
-    participants = models.ManyToManyField(User, blank=True)
+    owner = models.ForeignKey(User, related_name='owned_hunts')
+    participants = models.ManyToManyField(User, blank=True, related_name='joined_hunts')
     description = models.TextField(max_length=1000)
     name = models.CharField(max_length=100)
     photo = models.ImageField(blank=True)
@@ -32,7 +30,7 @@ class Clue(models.Model):
     text = models.TextField(max_length=500, blank=True)
     points = models.IntegerField()
 
-    hunt = models.ForeignKey(Hunt)
+    hunt = models.ForeignKey(Hunt, related_name='clues')
 
     def __str__(self):
         return "{} (Hunt '{}')".format(self.name, self.hunt.name)
@@ -46,8 +44,8 @@ class Submission(models.Model):
     valid = models.BooleanField()
     verified = models.BooleanField()
 
-    clue = models.ForeignKey(Clue)
-    user = models.ForeignKey(User)
+    clue = models.ForeignKey(Clue, related_name='submissions')
+    user = models.ForeignKey(User, related_name='submissions')
 
     def __str__(self):
         return "User '{}' to Clue '{}')".format(self.user, self.clue)

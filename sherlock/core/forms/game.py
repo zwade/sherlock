@@ -1,17 +1,19 @@
 from django import forms
-from ..models import Submission
+from ..models import Submission, Clue, Hunt
 
 class SubmissionForm(forms.ModelForm):
+    clue = forms.SlugField()
+
     class Meta:
         model = Submission
         fields = ['image', 'comment']
 
-class ClueForm(forms.Form):
-    def __init__(self, *args, **kwargs):
-        super(ClueForm, self).__init__(post, *args, **kwargs)
+class HuntForm(forms.ModelForm):
+    class Meta:
+        model = Hunt
+        fields = ['name', 'description', 'start_time', 'end_time']
 
-class HuntForm(forms.Form):
-    pass
-
-class NewClueForm(forms.Form):
-    pass
+class ClueForm(forms.ModelForm):
+    class Meta:
+        model = Clue
+        fields = ['name', 'text', 'points']
