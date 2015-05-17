@@ -41,7 +41,7 @@ LOGIN_URL = "/login"
 LOGIN_REDIRECT_URL = "/"
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
-SHOW_DEBUG_TOOLBAR = DEBUG and (os.getenv("DDT", "TRUE") == "TRUE")
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -58,6 +58,9 @@ if DEBUG:
         'debug_toolbar',
         "django_extensions"
     ]
+    DEBUG_TOOLBAR_CONFIG = {
+        "SHOW_TOOLBAR_CALLBACK": lambda r: (DEBUG and (os.getenv("DDT", "TRUE") == "TRUE"))
+    }
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
