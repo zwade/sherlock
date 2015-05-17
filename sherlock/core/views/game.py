@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from ..models import Hunt
+from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
 
@@ -56,6 +56,9 @@ class NewClueAjax(LoginRequiredMixin, View):
 
 class HuntView(View):
     def get(self, request, slug):
+        if request.resolver_match.url_name != 'view_hunt':
+            return redirect('view_hunt', slug=slug, permanent=True)
+
         hunt = Hunt.objects.get(slug=slug)
         
         if hunt.owner == request.user:
@@ -64,7 +67,7 @@ class HuntView(View):
         return render(request, 'hunt.html', {
             'hunt': hunt,
             'owned': hunt.owner == request.user,
-            'joined': request.user.joined_hunts.filter(id=hunt.id).exists()
+            'joined': request.user.joined_hunts.filter(slug=slug).exists()
         })
 
 class CluesView(LoginRequiredMixin, View):
@@ -101,4 +104,4 @@ class JoinHunt(LoginRequiredMixin, View):
         hunt.participants.add(request.user)
         hunt.save()
 
-        return redirect('view_clues')
+        return redirect('view_clues', slug=slug)

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import random
 import string
+from django.utils import timezone as datetime
 
 def random_string(N):
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(N))
@@ -21,9 +22,14 @@ class Hunt(models.Model):
             self.slug = random_string(8)
         super(Hunt, self).save()
 
+    def started(self):
+        return datetime.now() > self.start_time
+
+    def running(self):
+        return self.start_time < datetime.now() < self.end_time
+
     def __str__(self):
         return self.name
-
 
 class Clue(models.Model):
     name = models.CharField(max_length=200)

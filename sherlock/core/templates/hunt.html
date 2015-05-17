@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col offset-s0 offset-m0 m12 l7 s12">
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">{{ hunt.name }}</span>
+                    <div class="grey-text text-lighten-2">{{ hunt.owner }}</div> 
+                    <div class="card-body">
+                        {{ hunt.description }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col offset-l1 m12 l4 s12">
+            <div class="card green darken-1">
+                {% if owned %}
+                    <a href="{% url 'edit_hunt' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Edit Hunt</a>
+                {% elif joined and hunt.started %}
+                    <a href="{% url 'view_clues' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Participate</a>
+                {% else %}
+                    <form action="{% url 'join_hunt' hunt.slug %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" name="{{ hunt.id }}" value="true" class="cyan waves-effect waves-light btn col s12">Join this Hunt</button>
+                    </form>
+                {% endif %}
+            </div>
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Participants</span>
+                    <div class="collection">
+                        {% for participant in hunt.participants.all %}
+                            <div class="collection-item cyan-text">{{ participant.username }}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
