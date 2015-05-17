@@ -29,11 +29,13 @@
                    <div id="clue-cont">
                    {% include "clue_form.html" %}
                    </div>
-                   <div id="clues" class="collection cyan-text">
-                        {% for clue in clues %}
-                        {% include "clue_row.html" %}
-                        {% endfor %}
-                    </div>
+                   {% if clues %}
+                       <div id="clues" class="collection cyan-text">
+                            {% for clue in clues %}
+                            {% include "clue_row.html" %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
