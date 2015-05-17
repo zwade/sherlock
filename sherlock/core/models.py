@@ -4,13 +4,15 @@ import random
 import string
 from django.utils import timezone as datetime
 
+
 def random_string(N):
     return ''.join(random.choice(string.ascii_lowercase) for _ in range(N))
+
 
 class Hunt(models.Model):
     owner = models.ForeignKey(User, related_name='owned_hunts')
     participants = models.ManyToManyField(User, blank=True, related_name='joined_hunts')
-    description = models.TextField(max_length=1000)
+    description = models.TextField(max_length=1000, blank=True)
     name = models.CharField(max_length=100)
     photo = models.ImageField(blank=True)
     start_time = models.DateTimeField()
@@ -31,6 +33,7 @@ class Hunt(models.Model):
     def __str__(self):
         return self.name
 
+
 class Clue(models.Model):
     name = models.CharField(max_length=200)
     text = models.TextField(max_length=500, blank=True)
@@ -39,7 +42,7 @@ class Clue(models.Model):
     hunt = models.ForeignKey(Hunt, related_name='clues')
 
     def __str__(self):
-        return "{} (Hunt '{}')".format(self.name, self.hunt.name)
+        return "Clue '{}' of Hunt '{}'".format(self.name, self.hunt.name)
 
 
 class Submission(models.Model):
@@ -47,11 +50,11 @@ class Submission(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=200)
 
-    valid = models.BooleanField()
-    verified = models.BooleanField()
+    valid = models.BooleanField(default=True)
+    verified = models.BooleanField(default=False)
 
     clue = models.ForeignKey(Clue, related_name='submissions')
     user = models.ForeignKey(User, related_name='submissions')
 
     def __str__(self):
-        return "User '{}' to Clue '{}')".format(self.user, self.clue)
+        return "Submission by User '{}' to '{}'".format(self.user, self.clue)

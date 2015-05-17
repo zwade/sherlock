@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock %}
 
 {% block body %}
 <div class="center-align">
@@ -9,63 +15,60 @@
                 <div class="card green darken 1">
                     <br>
                     <span class="card-title">Register</span>
-                        <div class="card-content">
-                            <div class="row">
-                                <div class="card m-lcard">
-                                    <div class="input-field m-input">
-                                        <input name="firstname" id="first_name" type="text">
-                                        <label for="first_name">First Name</label>
-                                    </div>
-                                </div>
-                                <div class="card m-rcard">
-                                    <div class="input-field m-input">
-                                        <input name="lastname" id="last_name" type="text">
-                                        <label for="last_name">Last Name</label>
-                                    </div>
-                                </div>
+                    <div class="card-content">
+                        <div class="row">
+                            <div class="card m-lcard">
+                            <div class="input-field m-input">
+                            <input name="{{ form.first_name.name }}" id="first_name" type="text" value="{% firstof form.first_name.value %}" class="{% if form.first_name.errors %}invalid{% endif %}">
+                            <label for="first_name">First Name</label>
                             </div>
-                            <div class="card">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="email" name="email" type="email" class="validate">
-                                        <label for="email">Email Address</label>
-                                    </div>
-                                </div>	
                             </div>
-                            <div class="card">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="username" name="username" type="text">
-                                        <label for="username">Username</label>
-                                    </div>
-                                </div>
+                            <div class="card m-rcard">
+                            <div class="input-field m-input">
+                            <input name="{{ form.last_name.name }}" id="last_name" type="text" value="{% firstof form.last_name.value %}" class="{% if form.last_name.errors %}invalid{% endif %}">
+                            <label for="last_name">Last Name</label>
                             </div>
-                            <div class="card">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="password" type="password" name="password1">
-                                        <label for="password">Password</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input id="password_confirm" type="password" name="password2">
-                                        <label for="password_confirm">Confirm Password</label>
-                                    </div>
-                                </div>
                             </div>
                         </div>
-                        {% for field in form %}
-                        {{ field.name }}
-                        {% endfor %}
-                        <div class="card-action">
-                            <button type="submit" class="waves-effect waves-light btn-flat cyan white-text">Register</button>
+                        <div class="card">
+                        <div class="row">
+                            <div class="input-field col s12">
+                            <input id="email" name="{{ form.email.name }}" type="email" class="validate" value="{% firstof form.email.value %}" class="{% if form.email.errors %}invalid{% endif %}">
+                            <label for="email">Email Address</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card">
+                        <div class="row">
+                            <div class="input-field col s12">
+                            <input id="username" name="{{ form.username.name }}" type="text" value="{% firstof form.username.value %}" class="{% if form.username.errors %}invalid{% endif %}">
+                            <label for="username">Username</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card">
+                        <div class="row">
+                            <div class="input-field col s12">
+                            <input id="password" type="password" name="{{ form.password1.name }}" class="{% if form.password1.errors %}invalid{% endif %}">
+                            <label for="password">Password</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card">
+                        <div class="row">
+                            <div class="input-field col s12">
+                            <input id="password_confirm" type="password" name="{{ form.password2.name }}" class="{% if form.password2.errors %}invalid{% endif %}">
+                            <label for="password_confirm">Confirm Password</label>
+                            </div>
+                        </div>
                         </div>
                     </div>
-                </form>
-            </div>
+                    <div class="card-action">
+                        <button type="register" class="waves-effect waves-light btn-flat cyan white-text">Register</button>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
 </div>
 {% endblock %}

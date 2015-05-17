@@ -1,4 +1,24 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/vendor/lolliclock.js' %}"></script>
+    <script>
+        $(function(){
+            $('.timepicker').lolliclock();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 15
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/vendor/lolliclock.css' %}" />
+{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -6,41 +26,69 @@
         <div class="col offset-l0 m12 l4 s12">
             <div class="card green darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Settings</span>
-                    <form action="#" method="POST">
-                        <div class="row">
-                            <div class="col s12 input-field">
-                                <input name="{{ form.title.name }}" type="text" id="room_name" value="{{ form.title.value }}">
-                                <label class="white-text" for="room_name">Hunt Name</label>
-                            </div>
+                    <span class="card-title">Participants</span>
+                    <br>
+                    Invite friends with this link:
+                    <input type="text" value="{{ request.META.HTTP_HOST }}{% url 'view_hunt_short' hunt.slug %}">
+
+                    <br>
+                    {% if hunt.participants.all %}
+                        <div class="collection">
+                            {% for u in hunt.participants.all %}
+                                <a href="#" class="collection-item cyan-text">{{ u.username|capfirst }}</a>
+                            {% endfor %}
                         </div>
-                        <br>
-                        <div class="row">
-                            <div class="white-text input-field col s10 m10 l5">
-                                <input name="{{ form.startdate.name }}" class="datepicker" type="date" value="{{ form.startdate.value }}" id="date_start">
-                                <label class="white-text" for="date_start" >Start Date</label>
-                            </div>
-                            <div class="white-text col s2 center"> <div class="btn-level">to</div> </div>
-                            <div class="white-text input-field col s10 m10 l5">
-                                <input name="{{ form.enddate.name }}" class="datepicker" type="date" value="{{ form.enddate.value }}" id="date_end">
-                                <label class="white-text" for="date_end">End Date</label>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <button type="submit" class="cyan waves-effect waves-light btn col s12">Submit</button>
-                        </div>
-                    </form>
+                    {% else %}
+                        No participants yet.
+                    {% endif %}
                 </div>
             </div>
             <div class="card green darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Participants</span>
-                    <div class="collection">
-                        <a href="#" class="collection-item cyan-text">Corwin</a>
-                        <a href="#" class="collection-item cyan-text">Ethan</a>
-                        <a href="#" class="collection-item cyan-text">David</a>
-                        <a href="#" class="collection-item cyan-text">Zach</a>
-                    </div>
+                    <span class="card-title">Settings</span>
+                    <form action="{% url 'edit_hunt' hunt.slug %}" method="POST">
+                        <div class="row">
+                            <div class="col s12 input-field">
+                                <input type="text" name="{{ form.title.name }}" value="{{ form.title.value }}" id="room_name">
+                                <label class="white-text" for="room_name">Hunt Name</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="clue_desc" name="{{ form.desc.name }}" length="120" class="materialize-textarea">{{ form.desc.value }}</textarea>
+                                <label for="clue_desc" class="white-text">Description (Optional)</label>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="datepicker" type="date" name="{{ form.start_time.name }}_0" value="{{ form.start_time.value.date }}" id="date_start">
+                                <label class="white-text" for="date_start">Start Date</label>
+                            </div>
+
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="timepicker" type="text" name="{{ form.start_time.name }}_1" value="{{ form.start_time.value.time }}" id="time_start">
+                                <label class="white-text" for="time_start">Start Time</label>
+                            </div>
+
+                            <br>
+                            <div class="white-text col s12 center"> <div class="btn-level">to</div> </div>
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="datepicker" type="date" name="{{ form.end_time.name }}_0" value="{{ form.end_time.value.date }}" id="date_end">
+                                <label class="white-text" for="date_end">End Date</label>
+                            </div>
+
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="timepicker" type="text" name="{{ form.end_time.name }}_1" value="{{ form.end_time.value.time }}" id="time_end">
+                                <label class="white-text" for="time_end">End Time</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button class="col s12 m12 l6 offset-l3 cyan btn waves-effect waves-light" type="submit" name="action">Create
+                                <i class="mdi-content-send right"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

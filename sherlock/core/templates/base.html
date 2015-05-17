@@ -15,11 +15,11 @@
 <body>
     {% block nav %}
         {% if request.user.is_authenticated %}
-            <div class="header">
+            <div class="header navbar-fixed">
                 <nav>
                     <div class="nav-wrapper green">
                         <ul id="nav-name" class="left">
-                            <li><i class="large m-right m-left mdi-action-search"></i></li>
+                            <li><img class="pipe-logo" src="{% static 'img/pipe.png' %}" alt=""></li>
                             <li><a href="{% url 'index' %}" class="brand-logo">Sherlock</a></li>
                         </ul>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">

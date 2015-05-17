@@ -1,11 +1,12 @@
 import logging
-from django.contrib.auth import forms
+from django import forms
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
 
-class AuthenticationForm(forms.AuthenticationForm):
+class AuthenticationForm(AuthenticationForm):
     def is_valid(self):
         success = super(AuthenticationForm, self).is_valid()
 
@@ -18,7 +19,10 @@ class AuthenticationForm(forms.AuthenticationForm):
         return success
 
 
-class UserCreationForm(forms.UserCreationForm):
-    class Meta: 
+class UserCreationForm(UserCreationForm):
+    password1 = forms.CharField()
+    password2 = forms.CharField()
+
+    class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name', 'username', 'password1', 'password2') 
+        fields = ('email', 'first_name', 'last_name', 'username')

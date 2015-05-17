@@ -35,7 +35,6 @@ class RegisterView(View):
 
     def post(self, request):
         form = UserCreationForm(request.POST)
-        print(form)
 
         if form.is_valid():
             form.save()
@@ -47,7 +46,7 @@ class RegisterView(View):
 
             return redirect("index")
 
-        return render(request, 'register.html', {form: form})
+        return render(request, 'register.html', {'form': form})
 
 
 def logout_view(request):

@@ -3,19 +3,19 @@ from ..models import Submission, Clue, Hunt
 
 class SubmissionForm(forms.ModelForm):
     clue = forms.SlugField()
+    comment = forms.CharField(required=False)
 
     class Meta:
         model = Submission
         fields = ['image', 'comment']
 
 class HuntForm(forms.ModelForm):
+    start_time = forms.SplitDateTimeField(input_date_formats=['%d %B, %Y'], input_time_formats=['%I:%M %p'])
+    end_time = forms.SplitDateTimeField(input_date_formats=['%d %B, %Y'], input_time_formats=['%I:%M %p'])
+
     class Meta:
         model = Hunt
         fields = ['name', 'description', 'start_time', 'end_time']
-        widgets = {
-            "start_time": forms.SplitDateTimeWidget(),
-            "end_time": forms.SplitDateTimeWidget()
-        }
 
 class ClueForm(forms.ModelForm):
     class Meta:

@@ -7,7 +7,7 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">{{ hunt.name }}</span>
-                    <div class="grey-text text-lighten-2">{{ hunt.owner }}</div> 
+                    <div class="grey-text text-lighten-2">{{ hunt.owner }}</div>
                     <div class="card-body">
                         {{ hunt.description }}
                     </div>
@@ -30,11 +30,20 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Participants</span>
-                    <div class="collection">
-                        {% for participant in hunt.participants.all %}
-                            <div class="collection-item cyan-text">{{ participant.username }}</div>
-                        {% endfor %}
-                    </div>
+                    <br>
+                    Invite friends with this link:
+                    <input type="text" value="{{ request.META.HTTP_HOST }}{% url 'view_hunt_short' hunt.slug %}">
+
+                    <br>
+                    {% if hunt.participants.all %}
+                        <div class="collection">
+                            {% for u in hunt.participants.all %}
+                                <a href="#" class="collection-item cyan-text">{{ u.username|capfirst }}</a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        No participants yet.
+                    {% endif %}
                 </div>
             </div>
         </div>
