@@ -56,7 +56,7 @@ class NewClueAjax(LoginRequiredMixin, View):
 
             return render(request, 'clue_row.html', {'clue': clue})
 
-        raise render(request, 'clue_form.html', {'clue': form}, status=400)
+        return render(request, 'clue_form.html', {'clue': form}, status=400)
 
 
 class HuntView(View):
@@ -67,7 +67,7 @@ class HuntView(View):
         hunt = Hunt.objects.get(slug=slug)
         
         if hunt.owner == request.user:
-            return render(request, 'edit_hunt.html', {"form": hunt})
+            return render(request, 'edit_hunt.html', {"form": hunt, "clues": hunt.clues.all()})
 
         return render(request, 'hunt.html', {
             'hunt': hunt,

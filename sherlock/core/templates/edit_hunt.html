@@ -7,7 +7,7 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Settings</span>
-                    <form action="/hunts/update" method="POST">
+                    <form action="#" method="POST">
                         <div class="row">
                             <div class="col s12 input-field">
                                 <input name="{{ form.title.name }}" type="text" id="room_name" value="{{ form.title.value }}">
@@ -46,34 +46,14 @@
         </div>
         <div class="col offset-s0 offset-l1 offset-m0 m12 l7 s12">
             <div class="card green darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Clues</span>
-                    <div class="row">
-                        <div class="input-field col s9">
-                            <input type="text" class="clue_name"></input>
-                            <label class="white-text" for="clue_name">Clue Name</label>
-                        </div>
-                        <div class="input-field col s3">
-                            <input type="number" class="clue_value"></input>
-                            <label class="white-text" for="clue_value" value="10">Point Value</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="clue_desc" length="120" class="materialize-textarea"></textarea>
-                            <label for="clue_desc" class="white-text">Description (Optional)</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <button class="col s12 m12 l6 offset-l3 cyan btn waves-effect waves-light" type="submit" name="action">Add Clue
-                            <i class="mdi-content-send right"></i>
-                        </button>
-                    </div>
-                    <div class="collection cyan-text">
-                        <div class="collection-item cyan-text">Clue 1<i class="mdi-navigation-close right small"></i></div>
-                        <div class="collection-item cyan-text">Clue 2<i class="mdi-navigation-close right small"></i></div>
-                        <div class="collection-item cyan-text">Clue 3<i class="mdi-navigation-close right small"></i></div>
-                        <div class="collection-item cyan-text">Clue 4<i class="mdi-navigation-close right small"></i></div>
+                <div class="card-content white-text" >
+                   <div id="clue-cont">
+                   {% include "clue_form.html" %}
+                   </div>
+                   <div id="clues" class="collection cyan-text">
+                        {% for clue in clues %}
+                        {% include "clue_row.html" %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -89,5 +69,22 @@
         selectMonths: true,
         selectYears: 15
     });
+    var sub = function(e) {
+        e.preventDefault()
+        console.log(this)
+        var fd = new FormData(this)
+        var xhr = new XMLHttpRequest()
+        xhr.open("POST",window.location.pathname+"clues/new")
+        xhr.send(fd)
+        xhr.onload = function() {
+            if (xhr.status == 200) {
+                $("#clues").append($(xhr.response))
+            } else {
+                $("#clue-cont").html($(xhr.response))
+                $("#newClue").submit(sub)
+            }
+        }
+    }
+    $("#newClue").submit(sub)
 </script>
 {% endblock %}

@@ -1,0 +1,74 @@
+<!Doctype HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>	
+		<link rel="stylesheet" href="css/login.css">  
+		<link rel="stylesheet" href="css/main.css">
+    </head>
+    <body>
+        <div class="header">
+			<nav>
+				<div class="nav-wrapper green">
+					<ul id="nav-name" class="left">
+						<li><i class="large m-right m-left mdi-action-search"></i></li>
+						<li><a href="#" class="brand-logo">Sherlock</a></li>
+					</ul>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="active" href="/hunts">Hunts</a></li>
+						<li><a href="/settings">Settings</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+       
+        <div class="center-align">
+            <div class="row">
+                <div class="col l8 offset-l2 m12 s12">
+                    <div class="card green darken 1">
+                        <br>
+                        <span class="card-title">Scoreboard</span>
+                        <div class="card-content">
+                            <form>
+                                <div class="card white">
+                                    <table class="centered striped">
+                                        <thead>
+                                            <tr>
+                                                <th data-field='name'>Name</th>
+                                                <th data-field='score'>Score</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="body">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+	    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+	    <script> 
+            function addScore(name, score) {
+                $("#body").append('<tr><td>'+name+'</td><td>'+score+'</td></tr>');
+            }
+            function compare(a, b) {
+                if(a.score<b.score)
+                    return 1;
+                if(a.score>b.score)
+                    return -1;
+                return 0
+            }
+            scores=[{name: 'joe', score: 20}, {name: 'bob', score:100}, {name: 'hello', score: 21}]
+            scores.sort(compare);
+            for(score in scores) {
+                addScore(scores[score].name, scores[score].score)
+            }
+        </script>
+    </body>
+</html>
+
