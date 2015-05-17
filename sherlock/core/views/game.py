@@ -124,6 +124,7 @@ class JoinHunt(LoginRequiredMixin, View):
 
         return redirect('view_clues', slug=slug)
 
+
 class DeleteClueAjax(LoginRequiredMixin, View):
     def post(self, request, slug):
         if "clue_id" in request.POST and request.POST["clue_id"].isdigit():
@@ -136,6 +137,7 @@ class DeleteClueAjax(LoginRequiredMixin, View):
                 raise http.Http404
         else:
             return http.HttpResponse(status=400)
+
 
 class Scoreboard(View):
     def get(self, request, slug):
