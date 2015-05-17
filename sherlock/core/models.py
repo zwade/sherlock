@@ -29,13 +29,13 @@ class Hunt(models.Model):
 
 class Clue(models.Model):
     name = models.CharField(max_length=200)
-    text = models.TextField(max_length=500)
+    text = models.TextField(max_length=500, blank=True)
     points = models.IntegerField()
 
     hunt = models.ForeignKey(Hunt)
 
     def __str__(self):
-        return "{} (Hunt {})".format(self.name, self.hunt.name)
+        return "{} (Hunt '{}')".format(self.name, self.hunt.name)
 
 
 class Submission(models.Model):
@@ -50,4 +50,4 @@ class Submission(models.Model):
     user = models.ForeignKey(User)
 
     def __str__(self):
-        return "User {} to Clue {})".format(self.user, self.clue)
+        return "User '{}' to Clue '{}')".format(self.user, self.clue)
