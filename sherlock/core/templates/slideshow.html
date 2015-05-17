@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="center-align" style="position: absolute">
+    <div class="row" id="grid">
+    
+    </div>
+</div>
+       
+<div class="center-align">
+    <div class="row">
+        <div class="col l8 offset-l2 m12 s12">
+            <div class="slider m-slider" id="slider">
+                <ul class="slides" id="imgul">
+                    <!--li>
+                        <img src="http://lorempixel.com/580/250/nature/1">
+                        <div class="caption center-align">
+                        <h3>This is our big Tagline!</h3>
+                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                        </div>
+                    </li-->
+                </ul>
+            </div>
+            <a class="btn waves-effect waves-light btn-flat cyan" onclick="swap()">Click Me</a>
+            <!--a class="waves-effect waves-light btn-flat cyan" onclick="fullscreen()">Fullscreen</a-->
+        </div>
+    </div>
+</div>
+{% endblock %}
+    	
+{% block scripts %}
+{{ block.super }}
+<script>
+
+    function swap() {
+        if($('.m-card').css('opacity')==1) {
+            $('.m-card').css('opacity', 0);
+            $('#slider').css('opacity', 1);
+        }
+        else {
+            $('.m-card').css('opacity', 1);
+            $('#slider').css('opacity', 0);
+        }
+    }
+    function addImage(url,title, tag) {
+        $("#imgul").append('<li><img src="'+url+'"><div class="caption center-align"><h3>'+title+'</h3><h5 class="light grey-text text-lighten-3">'+tag);
+        $("#grid").append('<div class="col s4"> <div class="card m-card"> <div class="card-content"> <img src="'+url+'"> </div></div></div>');
+    }
+    submissions=/*{{ submissions }}*/[["http://lorempixel.com/580/250/nature/1","hello","world"],["http://lorempixel.com/580/250/nature/2","i am","so tired"],[ "http://lorempixel.com/580/250/nature/3","i could use","some serious sleep"]]
+    for (var image in submissions) {
+        addImage(submissions[image][0],submissions[image][2],submissions[image][1])
+    }
+    $(document).ready(function() {
+        
+        $('.slider').slider({full_width:true});
+        $('.m-card').css('opacity', 0)
+    });
+</script>
+
+{% endblock %}
