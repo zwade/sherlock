@@ -72,7 +72,7 @@ class HuntView(View):
         return render(request, 'hunt.html', {
             'hunt': hunt,
             'owned': hunt.owner == request.user,
-            'joined': request.user.joined_hunts.filter(slug=slug).exists()
+            'joined': request.user.is_authenticated() and request.user.joined_hunts.filter(slug=slug).exists()
         })
 
 
@@ -107,7 +107,7 @@ class SubmissionAjax(LoginRequiredMixin, View):
 
 
 class JoinHunt(LoginRequiredMixin, View):
-    def post(self, request, slug):
+    def get(self, request, slug):
         hunt = Hunt.objects.get(slug=slug)
 
         hunt.participants.add(request.user)
