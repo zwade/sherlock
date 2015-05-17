@@ -108,10 +108,6 @@ class SubmissionAjax(LoginRequiredMixin, View):
 
             return http.HttpResponse()
 
-        print(form.errors)
-
-
-
         return http.HttpResponse(status=400)
 
 
@@ -123,6 +119,7 @@ class JoinHunt(LoginRequiredMixin, View):
         hunt.save()
 
         return redirect('view_clues', slug=slug)
+
 
 class DeleteClueAjax(LoginRequiredMixin, View):
     def post(self, request, slug):
@@ -136,6 +133,7 @@ class DeleteClueAjax(LoginRequiredMixin, View):
                 raise http.Http404
         else:
             return http.HttpResponse(status=400)
+
 
 class Scoreboard(View):
     def get(self, request, slug):
