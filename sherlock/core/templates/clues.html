@@ -8,47 +8,58 @@
                 <div class="card-content white-text">
                     <span class="card-title">My Hunts</span>
                     <ul class="collection cyan-text">
-                        <li class="collection-item modal-trigger" href="#clue1">Clue Name 1</li>
-                        <div id="clue1" class="modal">
-                            <form id="submit">
-                                {% csrf_token %}
-                                <div class="black-text modal-content">
-                                    <h4>This is your clue</h4>
-                                    <p>This is some more info</p>
-                                    <br>
-                                    <div  class="row">
-                                        <label for="test1" class="col offset-l1 l4 m12 s12 btn btn-level waves-effect waves-light">Upload Image</label>
-                                        <input name="image" type="file" id="test1" capture="camera" href="#" style="display:none">
-                                        <div class="input-field col l6 m12 s12">
-                                            <input name="caption" type="text" id="caption">
-                                            <label for="caption">Caption (Optional)</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Send</button>
-                                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
-                                </div>
-                            </form>
-                        </div>
+                        {% for clue in clues %}
+                            <li class="collection-item modal-trigger" data-clue="{{ clue.id }}">Clue Name 1</li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="submitmodal" class="modal">
+    <form id="submit">
+        <input type="hidden" id="clue-id" name="{{ form.clue.name }}" />
+        {% csrf_token %}
+        <div class="black-text modal-content">
+            <h4>This is your clue</h4>
+            <p>This is some more info</p>
+            <br>
+            <div class="row">
+                <label for="captured" class="col offset-l1 l4 m12 s12 btn btn-level waves-effect waves-light">Upload Image</label>
+                <input name="{{ form.image.name }}" type="file" id="captured" capture="camera" href="#" style="display:none">
+                <div class="input-field col l6 m12 s12">
+                    <input name="{{ form.caption.name }}" type="text" id="caption" value="{{ form.caption.value }}">
+                    <label for="caption">Caption (Optional)</label>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Send</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
 {% block scripts %}
+{{ block.super }}
 <script>
     $(document).ready(function(){
-        $('.modal-trigger').leanModal();
+        var modal = $('#submitmodal')
+        var form = $("#submit")
+        var clueinp = $('#clue-id')
+        $('.modal-trigger').on('click', function(e) {
+            clueinp.val($(e.target).data('clue'))
+            modal.openModal()
+        })
+        form.submit(function(e) {
+            var fd = new FormData(form[0])
+            var xhr = new XMLHttpRequest()
+            xhr.open("POST", "clues/submit")
+            xhr.send(fd)
+            e.preventDefault()
+        })
     });
-    $("#submit").submit(function(e) {
-        var fd = new FormData($("#submit")[0])
-        var xhr = new XMLHttpRequest()
-        xhr.open("POST","idunno")
-        xhr.send(fd)
-        e.preventDefault()
-    })
 </script>
 {% endblock %}
