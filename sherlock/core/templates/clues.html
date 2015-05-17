@@ -6,7 +6,7 @@
         <div class="col offset-s0 offset-m0 m12 l8 offset-l2 s12">
             <div class="card green darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">My Hunts</span>
+                    <span class="card-title">{{ hunt.name }}</span>
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
                             <li class="collection-item modal-trigger {% if clue.solved %}disabled{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">Clue Name 1</li>
@@ -60,7 +60,7 @@
         form.submit(function(e) {
             var fd = new FormData(form[0])
             var xhr = new XMLHttpRequest()
-            xhr.open("POST", "clues/submit")
+            xhr.open("POST", "hunts/submit")
             xhr.send(fd)
             $('#captured').val('')
             $('#caption').val('')

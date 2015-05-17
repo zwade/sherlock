@@ -1,5 +1,50 @@
 {% extends 'logged_in_base.html' %}
 
 {% block body %}
-    hunts
+<div class="container">
+    <div class="row">
+        <div class="col offset-s0 offset-m0 m12 l7 s12">
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">My Hunts</span>
+                    <div class="collection cyan-text">
+                        {% for h in hunts %}
+                        {% if h.active %}
+                        <a href="/hunts/{{ h.id }}" class="collection-item cyan-text">{{ h.name }}</a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="collection">
+                        {% for h in hunts %}
+                        {% if not h.active %}
+                        <a href="/hunts/{{ h.id }}" class="grey lighten-2 collection-item cyan-text">{{ h.name }}</a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col offset-l1 m12 l4 s12">
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Create</span>
+                    <div class="row">
+                        <a href="/hunts/create" class="cyan waves-effect waves-light btn col s12">Create Hunt</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Hosted Hunts</span>
+                    <div class="collection">
+                        {% for h in hosted %}
+                        <a href="/hunts/{{ h.id }}" class="collection-item cyan-text {% if not h.active %}grey lighten-2{% endif %}">{{ h.id }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
