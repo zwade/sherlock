@@ -31,12 +31,19 @@ if DEBUG:
     SECRET_KEY = '$k9m+%8d6=6gbkkqir11ma=565e3@-*9%)s%5t9l1wopz%mdbj'
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+INTERNAL_IPS = ["127.0.0.1"]
 
 
 # Application definition
 
-INSTALLED_APPS = (
+LOGIN_URL = "/login"
+LOGIN_REDIRECT_URL = "/"
+DEBUG_TOOLBAR_PATCH_SETTINGS = False
+
+SHOW_DEBUG_TOOLBAR = True
+
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,9 +51,14 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'sherlock.core'
-)
+]
 
-MIDDLEWARE_CLASSES = (
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -55,7 +67,12 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-)
+]
+
+if DEBUG:
+    MIDDLEWARE_CLASSES = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ] + MIDDLEWARE_CLASSES
 
 ROOT_URLCONF = 'sherlock.urls'
 
@@ -109,3 +126,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    "formatters": {
+        # "verbose": {
+        #     "format": "%(levelname)s %(asctime)s %(module)s"
+        #               "%(process)d %(thread)d %(message)s"
+        # },
+        "simple": {
+            "format": "%(levelname)s: %(message)s"
+        },
+    },
+    'handlers': {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "simple"
+        },
+    },
+    'loggers': {
+        'sherlock': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
