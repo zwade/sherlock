@@ -92,3 +92,8 @@ nav ul li:hover, nav ul li.active {
     visibility: visible;
 }
 
+#swapper {
+     position: fixed;
+     bottom: 10px;
+     right: 10px;
+}
