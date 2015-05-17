@@ -5,6 +5,7 @@ from django.views.generic import View
 from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -71,7 +72,7 @@ class HuntView(View):
         return render(request, 'hunt.html', {
             'hunt': hunt,
             'owned': hunt.owner == request.user,
-            'joined': request.user.joined_hunts.filter(slug=slug).exists()
+            'joined': request.user.is_authenticated() and request.user.joined_hunts.filter(slug=slug).exists()
         })
 
 
@@ -105,10 +106,26 @@ class SubmissionAjax(LoginRequiredMixin, View):
         return http.HttpResponse(status=400)
 
 class JoinHunt(LoginRequiredMixin, View):
-    def post(self, request, slug):
+    def get(self, request, slug):
         hunt = Hunt.objects.get(slug=slug)
 
         hunt.participants.add(request.user)
         hunt.save()
 
         return redirect('view_clues', slug=slug)
+
+class Slideshow(View):
+    def get(self, request, slug):
+        hunt = Hunt.objects.get(slug=slug)
+        if not hunt.started():
+            return redirect('view_hunt', slug=slug)
+
+        return render(request, 'slideshow.html', {'hunt': hunt})
+
+class HuntImageStream(View):
+    def get(self, request, slug):
+        images = Submission.objects.select_related('clue').filter(clue__hunt__slug=slug)
+
+        values = images.values_list('image', 'comment', 'clue__name')
+
+        return http.HttpResponse(json.dumps(list(values)))
