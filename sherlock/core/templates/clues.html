@@ -9,7 +9,7 @@
                     <span class="card-title">My Hunts</span>
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
-                            <li class="collection-item modal-trigger" data-clue="{{ clue.id }}">Clue Name 1</li>
+                            <li class="collection-item modal-trigger {% if clue.solved %}disabled{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">Clue Name 1</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -23,8 +23,8 @@
         <input type="hidden" id="clue-id" name="{{ form.clue.name }}" />
         {% csrf_token %}
         <div class="black-text modal-content">
-            <h4>This is your clue</h4>
-            <p>This is some more info</p>
+            <h4 id="clue-title">This is your clue</h4>
+            <p id="clue-text">This is some more info</p>
             <br>
             <div class="row">
                 <label for="captured" class="col offset-l1 l4 m12 s12 btn btn-level waves-effect waves-light">Upload Image</label>
@@ -49,8 +49,12 @@
         var modal = $('#submitmodal')
         var form = $("#submit")
         var clueinp = $('#clue-id')
+        var cluetit = $('#clue-title')
+        var cluetxt = $('#clue-text')
         $('.modal-trigger').on('click', function(e) {
             clueinp.val($(e.target).data('clue'))
+            cluetit.val($(e.target).data('title'))
+            cluetxt.val($(e.target).data('text'))
             modal.openModal()
         })
         form.submit(function(e) {
@@ -58,6 +62,8 @@
             var xhr = new XMLHttpRequest()
             xhr.open("POST", "clues/submit")
             xhr.send(fd)
+            $('#captured').val('')
+            $('#caption').val('')
             e.preventDefault()
         })
     });
