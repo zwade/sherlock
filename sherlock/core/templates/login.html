@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block body %}
+
 <div class="center-align">
+
     <div class="row">
         <div class="col l4 offset-l4 m12 s12">
             <div class="card green darken 1">
@@ -16,22 +18,25 @@
                 <form method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <div class="card-content">
-                        <div class="card white">
-                        <div class="row">
-                             <div class="input-field col s12">
-                                <input id="username" type="text">
-                                <label for="username">Username</label>
+                        {% if form.errors %}
+                            <ul>
+                                {% for _, e in form.errors.items %}
+                                    {{ e }}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% for field in form %}
+                            <div class="card white">
+                                <div class="row">
+                                     <div class="input-field col s12">
+                                        {{ field }}
+                                        {{ field.label_tag }}
+                                        {{ field.errors }}
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        </div>
-                        <div class="card white">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input id="password" type="password">
-                                <label for="password">Password</label>
-                            </div>
-                        </div>
-                        </div>
+                        {% endfor %}
+
                     </div>
                     <div class="card-action">
                         <a class="waves-effect waves-light btn-flat cyan white-text">Register</a>

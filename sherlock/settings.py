@@ -53,6 +53,11 @@ INSTALLED_APPS = [
     'sherlock.core'
 ]
 
+try:
+    INSTALLED_APPS += ["django_extensions"]
+except ImportError:
+    pass
+
 if DEBUG:
     INSTALLED_APPS += [
         'debug_toolbar',

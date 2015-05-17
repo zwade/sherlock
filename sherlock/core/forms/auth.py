@@ -1,8 +1,10 @@
-from django import forms
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+import logging
+from django.contrib.auth import forms
 
-class AuthenticationForm(AuthenticationForm):
+logger = logging.getLogger(__name__)
 
+
+class AuthenticationForm(forms.AuthenticationForm):
     def is_valid(self):
         success = super(AuthenticationForm, self).is_valid()
 
@@ -14,5 +16,6 @@ class AuthenticationForm(AuthenticationForm):
 
         return success
 
-class UserCreationForm(UserCreationForm):
+
+class UserCreationForm(forms.UserCreationForm):
     pass
