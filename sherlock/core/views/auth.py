@@ -1,13 +1,17 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.views.generic import View
 from ..forms import AuthenticationForm, UserCreationForm
 
+logger = logging.getLogger(__name__)
 
-class login_view(View):
+
+class LoginView(View):
     def get(self, request):
         if request.user.is_authenticated():
-            return redirect('/')
+            return redirect("index")
         return render(request, 'login.html', {'form': AuthenticationForm()})
 
     def post(self, request):
@@ -16,17 +20,17 @@ class login_view(View):
         if form.is_valid():
             login(request, form.get_user())
 
-            next_url = request.GET.get('next', '/')
+            next_url = request.GET.get('next', "index")
 
             return redirect(next_url)
 
         return render(request, 'login.html', {'form': form})
 
 
-class register_view(View):
+class RegisterView(View):
     def get(self, request):
         if request.user.is_authenticated():
-            return redirect('/')
+            return redirect("index")
         return render(request, 'register.html', {'form': UserCreationForm()})
 
     def post(self, request):
@@ -40,12 +44,11 @@ class register_view(View):
             user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data('password'))
             login(request, user)
 
-            return redirect('/')
+            return redirect("index")
 
         return render(request, 'register.html', {form: form})
 
 
-def index_view(request):
-    if not request.user.is_authenticated():
-        return render(request, 'index.html')
-    return render(request, 'hunts.html')
+def logout_view(request):
+    logout(request)
+    return redirect("index")
