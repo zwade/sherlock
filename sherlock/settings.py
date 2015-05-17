@@ -42,7 +42,6 @@ LOGIN_REDIRECT_URL = "/"
 DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
