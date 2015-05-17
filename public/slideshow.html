@@ -1,0 +1,70 @@
+<!Doctype HTML>
+<html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>	
+		<link rel="stylesheet" href="css/login.css">  
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+    <body>    
+        <div class="header">
+			<nav>
+				<div class="nav-wrapper green">
+					<ul id="nav-name" class="left">
+						<li><i class="large m-right m-left mdi-action-search"></i></li>
+						<li><a href="#" class="brand-logo">Sherlock</a></li>
+					</ul>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="active" href="/hunts">Hunts</a></li>
+						<li><a href="/settings">Settings</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+       
+        <div class="center-align">
+            <div class="row">
+                <div class="col l4 offset-l4 m12 s12">
+                    <div class="slider" id="slider">
+                        <ul class="slides" id="imgul">
+                            <li>
+                                <img src="http://lorempixel.com/580/250/nature/1"> <!-- random image -->
+                                <div class="caption center-align">
+                                <h3>This is our big Tagline!</h3>
+                                <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--a class="waves-effect waves-light btn-flat cyan" onclick="fullscreen()">Fullscreen</a-->
+                </div>
+            </div>
+		</div>
+	
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+    <script>
+        /*function fullscreen() {
+            document.getElementById('slider').className="slider fullscreen";
+        }*/
+        function addImage(url) {
+            $("#imgul").append('<li><img src="'+url+'">');
+        }
+        images=["http://lorempixel.com/580/250/nature/2", "http://lorempixel.com/580/250/nature/3"];
+        for (var image in images) {
+            addImage(images[image]);
+        }
+        $(document).ready(function() {
+            $('.slider').slider({full_width:true});
+        });
+        /*$(document).keyup(function(e) {
+            if(e.keyCode == 27) {
+                document.getElementById('slider').className="slider";
+            }
+        });*/
+    </script>
+
+    </body>
+</html>
+

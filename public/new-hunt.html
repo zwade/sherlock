@@ -1,0 +1,77 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+	<link rel="stylesheet" href="/css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+	</head>
+
+	<body>
+		<div class="header">
+			<nav>
+				<div class="nav-wrapper green">
+					<ul id="nav-name" class="left">
+						<li><i class="large m-right m-left mdi-action-search"></i></li>
+						<li><a href="#" class="brand-logo">Sherlock</a></li>
+					</ul>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="active" href="sass.html">Hunts</a></li>
+						<li><a href="components.html">Settings</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+		<div class="container">
+            <form action="#" method="post" name="new">
+                <div class="row">
+                    <div class="col offset-l3 m12 l6 s12">
+                        <div class="card green darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">New Hunt</span>
+                                <div class="row">
+                                    <div class="col s12 input-field">
+                                        <input type="text" name="{{ new.title.name }}" value="{{ new.title.value }}" id="room_name">
+                                        <label class="white-text" for="room_name">Hunt Name</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea id="clue_desc" name="{{ new.desc.name }}" length="120" class="materialize-textarea">{{ new.desc.value }}</textarea>
+                                        <label for="clue_desc" class="white-text">Description (Optional)</label>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="white-text input-field col s10 m10 l5">
+                                        <input class="datepicker" type="date" name="{{ new.start.name }}" value="{{ new.start.value }}" id="date_start">
+                                        <label class="white-text" for="date_start">Start Date</label>
+                                    </div>
+                                    <div class="white-text col s2 center"> <div class="btn-level">to</div> </div>
+                                    <div class="white-text input-field col s10 m10 l5">
+                                        <input class="datepicker" type="date" name="{{ new.end.name }}" value="{{ new.end.value }}" id="date_end">
+                                        <label class="white-text" for="date_end">End Date</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <button class="col s12 m12 l6 offset-l3 cyan btn waves-effect waves-light" type="submit" name="action">Add Clue
+                                        <i class="mdi-content-send right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+		</div>
+	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+    <script>
+        $('.datepicker').pickadate({
+            selectMonths: true,
+            selectYears: 15
+        });
+    </script>
+
+</html>
