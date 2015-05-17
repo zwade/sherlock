@@ -653,6 +653,7 @@
     }
 
     //if (this.options.autoclose) {
+    this.input.trigger('focus');
     this.input.trigger('blur');
     //}
 
