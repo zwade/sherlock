@@ -11,7 +11,12 @@ body {
 
 .btn-level {
 	margin-top: 26px !important;
-}	
+}
+
 #slider {
     transition: width 5s linear, height 5s linear;
+}
+
+.modal-trigger {
+    cursor: pointer;
 }
