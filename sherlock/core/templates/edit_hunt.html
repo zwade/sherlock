@@ -116,6 +116,7 @@
         xhr.onload = function() {
             if (xhr.status == 200) {
                 $("#clues").append($(xhr.response))
+                $("#newClue")[0].reset()
             } else {
                 $("#clue-cont").html($(xhr.response))
                 $("#newClue").submit(sub)
