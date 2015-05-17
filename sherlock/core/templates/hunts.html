@@ -6,7 +6,7 @@
         <div class="col offset-s0 offset-m0 m12 l7 s12">
             <div class="card green darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">My Hunts</span>
+                    <span class="card-title">Hunts I'm Competing In</span>
                     {% if joined_hunts %}
                         {% if active_hunts %}
                             <div class="collection cyan-text">
@@ -35,7 +35,7 @@
             </div>
             <div class="card green darken-1">
                 <div class="card-content white-text">
-                    <span class="card-title">Hunts I Host</span>
+                    <span class="card-title">Hunts I'm Hosting</span>
                     {% with request.user.owned_hunts.all as owned_hunts %}
                         {% if owned_hunts %}
                             <div class="collection">

@@ -19,7 +19,9 @@
                                 </thead>
                                 <tbody id="body">
                                 {% for user in scores %}
-                                <tr><td>{{ user.username }}</td><td>{{ user.score }}</td></tr>
+                                    <tr><td>{{ user.username }}</td><td>{{ user.score }}</td></tr>
+                                {% empty %}
+                                    <tr><td>No submissions yet.</td></tr>
                                 {% endfor %}
 
                                 </tbody>
@@ -31,6 +33,6 @@
         </div>
     </div>
 </div>
-      
+
 {% endblock %}
-    	
+
