@@ -7,38 +7,42 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">My Hunts</span>
-                    <div class="collection cyan-text">
-                        {% for h in hunts %}
-                        {% if h.active %}
-                        <a href="/hunts/{{ h.id }}" class="collection-item cyan-text">{{ h.name }}</a>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
-                    <div class="collection">
-                        {% for h in hunts %}
-                        {% if not h.active %}
-                        <a href="/hunts/{{ h.id }}" class="grey lighten-2 collection-item cyan-text">{{ h.name }}</a>
-                        {% endif %}
-                        {% endfor %}
-                    </div>
+                    {% with request.user.joined_hunts.all as joined_hunts %}
+                    {% if joined_hunts %}
+                        <div class="collection cyan-text">
+                            {% for hunt in joined_hunts %}
+                            {% if hunt.active %}
+                            <a href="{% url 'view_hunt' hunt.slug %}" class="collection-item cyan-text">{{ hunt.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="collection">
+                            {% for hunt in joined_hunts %}
+                            {% if not hunt.active %}
+                            <a href="{% url 'view_hunt' hunt.slug %}" class="grey lighten-2 collection-item cyan-text">{{ hunt.name }}</a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <br>
+                        You have no hunts right now. Create one!
+                    {% endif %}
+                    {% endwith %}
                 </div>
             </div>
         </div>
         <div class="col offset-l1 m12 l4 s12">
             <div class="card green darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Create</span>
-                    <div class="row">
-                        <a href="/hunts/create" class="cyan waves-effect waves-light btn col s12">Create Hunt</a>
-                    </div>
-                </div>
+                <a href="{% url 'new_hunt' %}" class="cyan waves-effect waves-light btn col s12">Create Hunt</a>
             </div>
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Hosted Hunts</span>
                     <div class="collection">
-                        {% for h in hosted %}
-                        <a href="/hunts/{{ h.id }}" class="collection-item cyan-text {% if not h.active %}grey lighten-2{% endif %}">{{ h.id }}</a>
+                        {% for hunt in request.user.owned_hunts.all %}
+                        <a href="{% url 'edit_hunt' hunt.slug %}" class="collection-item cyan-text {% if not h.active %}grey lighten-2{% endif %}">
+                            {{ hunt.name }}
+                        </a>
                         {% endfor %}
                     </div>
                 </div>

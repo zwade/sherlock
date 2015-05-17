@@ -1,8 +1,10 @@
+from django import http
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
+
 
 class NewHuntView(LoginRequiredMixin, View):
     def get(self, request):
@@ -19,6 +21,7 @@ class NewHuntView(LoginRequiredMixin, View):
             return redirect('edit_hunt', slug=newHunt.slug)
 
         return render(request, 'new_hunt.html', {'form': form})
+
 
 class EditHuntView(LoginRequiredMixin, View):
     def get(self, request, slug):
@@ -41,6 +44,7 @@ class EditHuntView(LoginRequiredMixin, View):
 
         return render(request, 'edit_hunt.html', {'edit': HuntForm(hunt), 'clue': ClueForm(), 'hunt': hunt, 'clues': hunt.clues.all()})
 
+
 class NewClueAjax(LoginRequiredMixin, View):
     def post(self, request, slug):
         form = ClueForm(request.POST)
@@ -53,6 +57,7 @@ class NewClueAjax(LoginRequiredMixin, View):
             return render(request, 'clue_row.html', {'clue': clue})
 
         raise render(request, 'clue_form.html', {'clue': form}, status=400)
+
 
 class HuntView(View):
     def get(self, request, slug):
@@ -70,6 +75,7 @@ class HuntView(View):
             'joined': request.user.joined_hunts.filter(slug=slug).exists()
         })
 
+
 class CluesView(LoginRequiredMixin, View):
     def get(self, request, slug):
         if not request.user.joined_hunts.filter(slug=slug).exists():
@@ -84,6 +90,7 @@ class CluesView(LoginRequiredMixin, View):
 
         return render(request, 'clues.html', {'clues': clues.values(), 'hunt': hunt, 'form': SubmissionForm()})
 
+
 class SubmissionAjax(LoginRequiredMixin, View):
     def post(self, request, slug):
         form = SubmissionForm(request.POST)
@@ -93,7 +100,7 @@ class SubmissionAjax(LoginRequiredMixin, View):
             submission.clue = Clue.objects.get(id=form.cleaned_data['clue'])
             submission.save()
 
-            return HttpResponse()
+            return http.HttpResponse()
 
         return HttpResponse(status=400)
 

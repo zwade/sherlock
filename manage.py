@@ -1,4 +1,4 @@
-#!/usr/bin/env python -W ignore
+#!python -W ignore
 import os
 import sys
 

@@ -26,3 +26,14 @@ body {
     position: inherit;
     left: inherit;
 }
+
+
+@media (max-width: 500px) {
+    .container {
+        padding: 10px 0;
+    }
+}
+
+nav {
+    margin-bottom: 30px;
+}
