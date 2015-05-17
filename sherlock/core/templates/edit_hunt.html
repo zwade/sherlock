@@ -26,10 +26,13 @@
         <div class="col offset-s0 offset-l1 offset-m0 m12 l7 s12">
             <div class="card green darken-1">
                 <div class="card-content white-text" >
-                   <div id="clue-cont">
-                   {% include "clue_form.html" %}
-                   </div>
-                   <div id="clues" {% if not clues %} style="display:none" {% endif %}class="collection cyan-text">
+                    <form action="#" method="GET" id="newClue">
+                        {% csrf_token %}
+                        <div id="clue-cont">
+                            {% include 'clue_form.html' %}
+                        </div>
+                    </form>
+                    <div id="clues" {% if not clues %} style="display:none" {% endif %}class="collection cyan-text">
                         {% for clue in clues %}
                             {% include "clue_row.html" %}
                         {% endfor %}
@@ -60,7 +63,7 @@
             if (xhr.status == 200) {
                 $("#clues").append($(xhr.response))
                 $("#clues").css("display", "")
-                $("#newClue input, #newClue textarea").val('')
+                $("#clue-cont input, #clue-cont textarea").val('')
             } else {
                 $("#clue-cont").html($(xhr.response))
                 $("#newClue").submit(sub)

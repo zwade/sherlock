@@ -1,26 +1,23 @@
- <form action="#" method="GET" id="newClue">
-    {% csrf_token %}
-    <span class="card-title">Clues</span>
-    <div class="row">
-        <div class="input-field col s9">
-            <input name="name" type="text" id="clue_name"></input>
-            <label class="white-text" for="clue_name" data-val="Clue Name">Clue Name{% for error in clue.name.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
-        </div>
-        <div class="input-field col s3">
-            <input name="points" type="number" id="clue_value" ></input>
-            <label class="white-text" for="clue_value" value="10" data-val="Point Value">Point Value{% for error in clue.points.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
-        </div>
+<span class="card-title">Clues</span>
+<div class="row">
+    <div class="input-field col s9">
+        <input name="name" type="text" id="clue_name"></input>
+        <label class="white-text" for="clue_name" data-val="Clue Name">Clue Name{% for error in clue.name.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
     </div>
-    <div class="row">
-        <div class="input-field col s12">
-            <textarea name="text" id="clue_text" length="120" class="materialize-textarea"></textarea>
-            <label for="clue_text" class="white-text" data-val="Description (Optional)">Description (Optional){% for error in clue.text.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
-        </div>
+    <div class="input-field col s3">
+        <input name="points" type="number" id="clue_value" ></input>
+        <label class="white-text" for="clue_value" value="10" data-val="Point Value">Point Value{% for error in clue.points.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
     </div>
-    <div class="row">
-        <button class="col s12 m12 l6 offset-l3 cyan btn waves-effect waves-light" type="submit" >Add Clue
-            <i class="mdi-content-send right"></i>
-        </button>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <textarea name="text" id="clue_text" length="120" class="materialize-textarea"></textarea>
+        <label for="clue_text" class="white-text" data-val="Description (Optional)">Description (Optional){% for error in clue.text.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
     </div>
-</form>
+</div>
+<div class="row">
+    <button class="col s12 m12 l6 offset-l3 cyan btn waves-effect waves-light" type="submit" >Add Clue
+        <i class="mdi-content-send right"></i>
+    </button>
+</div>
 
