@@ -72,13 +72,7 @@ nav ul li:hover, nav ul li.active {
     }
 }
 
-#imgul {
-    height: 600px;
-}
 
-#slider {
-    height: 580px;
-}
 
 .btn {
     z-index: 10;

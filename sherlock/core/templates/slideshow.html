@@ -3,14 +3,17 @@
 {% block body %}
 <div class="center-align" style="position: absolute">
     <div class="row" id="grid">
-    
+        <div class="col s3 gc" id="c0"></div> 
+        <div class="col s3 gc" id="c1"></div> 
+        <div class="col s3 gc" id="c2"></div> 
+        <div class="col s3 gc" id="c3"></div> 
     </div>
 </div>
        
 <div class="center-align">
     <div class="row">
         <div class="col l8 offset-l2 m12 s12">
-            <div class="slider m-slider" id="slider">
+            <div class="slider fullscreen m-slider" id="slider">
                 <ul class="slides" id="imgul">
                     <!--li>
                         <img src="http://lorempixel.com/580/250/nature/1">
@@ -57,9 +60,21 @@
         xhr.send()
     }
     function addImage(url,title, tag) {
+        
+        cols = $(".gc").toArray()
+        mino = null
+        minv = 1000
+        for (c in cols) {
+            var obj = $(cols[c])
+            if (obj.height() < minv) {
+                console.log(obj)
+                mino = obj
+                minv = obj.height()
+            }
+        }
         $("#imgul").append('<li><img src="'+url+'"><div class="caption center-align"><h3>'+title+'</h3><h5 class="light grey-text text-lighten-3">'+tag);
         //console.log(tag);
-        $("#grid").append('<div class="col s4"> <div class="card m-card"> <div class="card-content"> <img src="'+url+'"> </div></div></div>');
+        mino.append('<div class="card-image m-card"> <div class="card-content"> <img src="'+url+'"> </div></div>');
         //$('.slider').slider({full_width:true});
     }
     //submissions={{ hunt.values }}//[["http://lorempixel.com/580/250/nature/1","hello","world"],["http://lorempixel.com/580/250/nature/2","i am","so tired"],[ "http://lorempixel.com/580/250/nature/3","i could use","some serious sleep"]]
