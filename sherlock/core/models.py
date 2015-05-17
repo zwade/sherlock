@@ -10,7 +10,7 @@ def random_string(N):
 
 class Hunt(models.Model):
     owner = models.ForeignKey(User, related_name="hunts")
-    participants = models.ManyToManyField(User)
+    participants = models.ManyToManyField(User, blank=True)
     description = models.TextField(max_length=1000)
     name = models.CharField(max_length=100)
     photo = models.ImageField(blank=True)
