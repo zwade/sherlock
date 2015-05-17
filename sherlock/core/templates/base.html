@@ -13,7 +13,24 @@
     {% endblock %}
 </head>
 <body>
-    {% block nav %}{% endblock %}
+    {% block nav %}
+        {% if request.user.is_authenticated %}
+            <div class="header">
+                <nav>
+                    <div class="nav-wrapper green">
+                        <ul id="nav-name" class="left">
+                            <li><i class="large m-right m-left mdi-action-search"></i></li>
+                            <li><a href="#" class="brand-logo">Sherlock</a></li>
+                        </ul>
+                        <ul id="nav-mobile" class="right hide-on-med-and-down">
+                            <li><a class="active" href="sass.html">Hunts</a></li>
+                            <li><a href="components.html">Settings</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        {% endif %}
+    {% endblock %}
     {% block body %}
 
     {% endblock %}
