@@ -35,12 +35,13 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Participants</span>
-                    <div class="collection">
-                        <a href="#" class="collection-item cyan-text">Corwin</a>
-                        <a href="#" class="collection-item cyan-text">Ethan</a>
-                        <a href="#" class="collection-item cyan-text">David</a>
-                        <a href="#" class="collection-item cyan-text">Zach</a>
-                    </div>
+                    {% if hunt.participants %}
+                        <div class="collection">
+                            {% for u in hunt.participants.all %}
+                                <a href="#" class="collection-item cyan-text">{{ u.username|capfirst }}</a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
