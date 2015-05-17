@@ -1,0 +1,15 @@
+.row{ margin:0px }
+.m-lcard, .m-rcard {
+    display: inline-block;
+	width: calc(50% - 15px);
+}
+
+.m-lcard {
+    margin-right: 26px;
+}
+
+.m-input {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+

@@ -1,0 +1,90 @@
+{% extends 'logged_in_base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col offset-l0 m12 l4 s12">
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Settings</span>
+                    <div class="row">
+                        <div class="col s12 input-field">
+                            <input type="text" id="room_name">
+                            <label class="white-text" for="room_name">Hunt Name</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="white-text input-field col s10 m10 l5">
+                            <input class="datepicker" type="date" id="date_start">
+                            <label class="white-text" for="date_start">Start Date</label>
+                        </div>
+                        <div class="white-text col s2 center"> <div class="btn-level">to</div> </div>
+                        <div class="white-text input-field col s10 m10 l5">
+                            <input class="datepicker" type="date" id="date_end">
+                            <label class="white-text" for="date_end">End Date</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <a class="cyan waves-effect waves-light btn col s12">Submit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Participants</span>
+                    <div class="collection">
+                        <a href="#" class="collection-item cyan-text">Corwin</a>
+                        <a href="#" class="collection-item cyan-text">Ethan</a>
+                        <a href="#" class="collection-item cyan-text">David</a>
+                        <a href="#" class="collection-item cyan-text">Zach</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col offset-s0 offset-l1 offset-m0 m12 l7 s12">
+            <div class="card green darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Clues</span>
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <input type="text" class="clue_name"></input>
+                            <label class="white-text" for="clue_name">Clue Name</label>
+                        </div>
+                        <div class="input-field col s3">
+                            <input type="number" class="clue_value"></input>
+                            <label class="white-text" for="clue_value" value="10">Point Value</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="clue_desc" length="120" class="materialize-textarea"></textarea>
+                            <label for="clue_desc" class="white-text">Description (Optional)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button class="col s12 m12 l6 offset-l3 cyan btn waves-effect waves-light" type="submit" name="action">Add Clue
+                            <i class="mdi-content-send right"></i>
+                        </button>
+                    </div>
+                    <div class="collection cyan-text">
+                        <div class="collection-item cyan-text">Clue 1<i class="mdi-navigation-close right small"></i></div>
+                        <div class="collection-item cyan-text">Clue 2<i class="mdi-navigation-close right small"></i></div>
+                        <div class="collection-item cyan-text">Clue 3<i class="mdi-navigation-close right small"></i></div>
+                        <div class="collection-item cyan-text">Clue 4<i class="mdi-navigation-close right small"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('.datepicker').pickadate({
+        selectMonths: true,
+        selectYears: 15
+    });
+</script>
+{% endblock %}
