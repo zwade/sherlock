@@ -1,0 +1,46 @@
+{% extends 'logged_in_base.html' %}
+
+{% block body %}
+<div class="center-align">
+    <form id="change-password-form" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col l4 offset-l4 m12 s12">
+                <div class="card green darken 1">
+                    <br>
+                    <span class="card-title">Change Password</span>
+                    <div class="card-content">
+                        <div class="card white">
+                        <div class="row">
+                             <div class="input-field col s12">
+                                <input id="password_old" type="password" name="{{ chpw.old_password.name }}">
+                                <label for="password_old">Old Password</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card white">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password_new" type="password" name="{{ chpw.new_password1.name }}">
+                                <label for="password_new">New Password</label>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card white">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="password_confirm" type="password" name="{{ chpw.new_password2.name }}">
+                                <label for="password_confirm">Confirm New Password</label>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="card-action">
+                        <button type="submit" class="waves-effect waves-light btn-flat cyan white-text">Change Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
