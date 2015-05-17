@@ -36,10 +36,13 @@ class EditHuntView(LoginRequiredMixin, View):
         return self.renderEdit(request, slug=slug)
 
     def post(self, request, slug):
-        form = HuntForm(request.POST)
+        current = Hunt.objects.get(slug=slug)
+        form = HuntForm(request.POST, instance=current)
 
         if form.is_valid():
-            return self.renderEdit(request, hunt=form.save())
+            form.save()
+
+            return redirect('edit_hunt', slug=slug)
 
         return self.renderEdit(request, slug=slug)
 
