@@ -3,8 +3,8 @@ from .views import app
 from .views import auth
 
 urlpatterns = [
-    url(r"^$", auth.index_view),
-    url(r"^login$", auth.login_view),
+    url(r"^$", app.index_view, name="index"),
+    url(r"^login$", auth.LoginView.as_view()),
     url(r"^logout$", auth.logout_view),
-    url(r"^register$", auth.register_view),
+    url(r"^register$", auth.RegisterView.as_view()),
 ]
