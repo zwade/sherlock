@@ -57,7 +57,9 @@ class NewClueAjax(LoginRequiredMixin, View):
 class HuntView(View):
     def get(self, request, slug):
         hunt = Hunt.objects.get(slug=slug)
-
+        
+        if hunt.owner == request.user:
+            return render(request, 'edit_hunt.html', {"form": hunt})
         return render(request, 'hunt.html', {'hunt': hunt, 'owned': hunt.owner == request.user})
 
 class CluesView(LoginRequiredMixin, View):
