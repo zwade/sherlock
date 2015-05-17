@@ -60,12 +60,21 @@ class HuntView(View):
         
         if hunt.owner == request.user:
             return render(request, 'edit_hunt.html', {"form": hunt})
-        return render(request, 'hunt.html', {'hunt': hunt, 'owned': hunt.owner == request.user})
+
+        return render(request, 'hunt.html', {
+            'hunt': hunt,
+            'owned': hunt.owner == request.user,
+            'joined': request.user.joined_hunts.filter(id=hunt.id).exists()
+        })
 
 class CluesView(LoginRequiredMixin, View):
     def get(self, request, slug):
+        if not request.user.joined_hunts.filter(slug=slug).exists():
+            return redirect('view_hunt', slug=slug)
+
         hunt = Hunt.objects.get(slug=slug)
         clues = dict((x.id, x) for x in Clue.objects.filter(hunt__slug=slug))
+
         for submission in Submission.objects.filter(clue__in=clues, user=request.user):
             if submission.valid:
                 clues[submission.clue.id].solved = True
@@ -84,3 +93,12 @@ class SubmissionAjax(LoginRequiredMixin, View):
             return HttpResponse()
 
         return HttpResponse(status=400)
+
+class JoinHunt(LoginRequiredMixin, View):
+    def post(self, request, slug):
+        hunt = Hunt.objects.get(slug=slug)
+
+        hunt.participants.add(request.user)
+        hunt.save()
+
+        return redirect('view_clues')
