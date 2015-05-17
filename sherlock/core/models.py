@@ -50,8 +50,8 @@ class Submission(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=200)
 
-    valid = models.BooleanField()
-    verified = models.BooleanField()
+    valid = models.BooleanField(default=True)
+    verified = models.BooleanField(default=False)
 
     clue = models.ForeignKey(Clue, related_name='submissions')
     user = models.ForeignKey(User, related_name='submissions')

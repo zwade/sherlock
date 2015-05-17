@@ -3,6 +3,7 @@ from ..models import Submission, Clue, Hunt
 
 class SubmissionForm(forms.ModelForm):
     clue = forms.SlugField()
+    comment = forms.CharField(required=False)
 
     class Meta:
         model = Submission

@@ -1,3 +1,4 @@
+import logging
 from django import http
 from django.shortcuts import render, redirect
 from django.views.generic import View
@@ -5,6 +6,7 @@ from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
 
+logger = logging.getLogger(__name__)
 
 class NewHuntView(LoginRequiredMixin, View):
     def get(self, request):
@@ -90,17 +92,17 @@ class CluesView(LoginRequiredMixin, View):
 
 class SubmissionAjax(LoginRequiredMixin, View):
     def post(self, request, slug):
-        form = SubmissionForm(request.POST)
+        form = SubmissionForm(request.POST, request.FILES)
 
         if form.is_valid():
             submission = form.save(commit=False)
             submission.clue = Clue.objects.get(id=form.cleaned_data['clue'])
+            submission.user = request.user
             submission.save()
 
             return http.HttpResponse()
 
         return http.HttpResponse(status=400)
-
 
 class JoinHunt(LoginRequiredMixin, View):
     def post(self, request, slug):

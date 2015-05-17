@@ -9,7 +9,7 @@
                     <span class="card-title">{{ hunt.name }}</span>
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
-                            <li class="collection-item modal-trigger {% if clue.solved %}disabled{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">{{ clue.name }}</li>
+                            <li class="collection-item modal-trigger {% if clue.solved %}clue-solved grey lighten-2{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">{{ clue.name }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -51,22 +51,22 @@
         var clueinp = $('#clue-id')
         var cluetit = $('#clue-title')
         var cluetxt = $('#clue-text')
-        $('.modal-trigger:not(".disabled")').on('click', function(e) {
-            clueinp.val($(e.target).data('clue'))
-            cluetit.val($(e.target).data('title'))
-            cluetxt.val($(e.target).data('text'))
+        $('.modal-trigger').on('click', function(e) {
+            var $el = $(e.target)
+            clueinp.val($el.data('clue'))
+            cluetit.text($el.data('name'))
+            cluetxt.text($el.data('text'))
             modal.openModal()
         })
         form.submit(function(e) {
             var fd = new FormData(form[0])
             var xhr = new XMLHttpRequest()
             var id = $('#clue-id').val()
-            xhr.open("POST", "hunts/submit")
+            xhr.open("POST", "{% url 'submit_image' hunt.slug %}")
             xhr.send(fd)
             xhr.onload = function() {
                 if (xhr.status == 200) {
-                    $('li[data-clue="'+id+'"]').addClass("grey lighten-2")
-                    $('li[data-clue="'+id+'"]').unbind('click')
+                    $('li[data-clue="'+id+'"]').addClass("grey lighten-2 clue-solved")
                 }
             }
             $('#captured').val('')
