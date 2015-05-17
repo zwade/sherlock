@@ -3,11 +3,11 @@
     <span class="card-title">Clues</span>
     <div class="row">
         <div class="input-field col s9">
-            <input name="name" type="text" class="clue_name"></input>
+            <input name="name" type="text" id="clue_name"></input>
             <label class="white-text" for="clue_name" data-val="Clue Name">Clue Name{% for error in clue.name.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
         </div>
         <div class="input-field col s3">
-            <input name="points" type="number" class="clue_value" ></input>
+            <input name="points" type="number" id="clue_value" ></input>
             <label class="white-text" for="clue_value" value="10" data-val="Point Value">Point Value{% for error in clue.points.errors %} - <span class="red-text white">{{error}}</span>{% endfor %}</label>
         </div>
     </div>
