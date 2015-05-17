@@ -31,7 +31,7 @@ if DEBUG:
     SECRET_KEY = '$k9m+%8d6=6gbkkqir11ma=565e3@-*9%)s%5t9l1wopz%mdbj'
 
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "sherlockga.me"]
 INTERNAL_IPS = ["127.0.0.1"]
 
 
