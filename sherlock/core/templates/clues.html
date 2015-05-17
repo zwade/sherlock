@@ -17,7 +17,12 @@
                     </div>
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
-                            <li class="collection-item modal-trigger {% if clue.solved %}clue-solved grey lighten-2{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">{{ clue.name }}</li>
+                            <li class="clue collection-item modal-trigger black-text {% if clue.solved %}clue-solved{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">
+                                <span class="completed-status green-text">
+                                    <i class="fa fa-check"></i>
+                                </span>
+                                {{ clue.name }}
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -71,7 +76,7 @@
             var fd = new FormData(e.target)
             var clueId = $('#clue-id').val()
             var currentClue = $('li[data-clue="'+clueId+'"]')
-            currentClue.addClass('grey lighten-2 clue-solved')
+            currentClue.addClass('clue-solved')
             progressBar.show()
             $.ajax({
                 url: "{% url 'submit_image' hunt.slug %}",
@@ -82,7 +87,7 @@
                 contentType: false,
             })
             .fail(function() {
-                currentClue.removeClass('grey lighten-2 clue-solved')
+                currentClue.removeClass('clue-solved')
                 progressBar.hide()
             })
             .success(function() {
