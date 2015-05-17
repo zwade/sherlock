@@ -1,0 +1,17 @@
+body {
+    background-color: #e0f7fa 
+}
+.m-left {
+	margin-left: 20px;
+}
+
+.m-right {
+	margin-right: 20px;
+}
+
+.btn-level {
+	margin-top: 26px !important;
+}	
+#slider {
+    transition: width 5s linear, height 5s linear;
+}

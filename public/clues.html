@@ -1,0 +1,79 @@
+<html>
+	<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+	<link rel="stylesheet" href="/css/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+	</head>
+
+	<body>
+		<div class="header">
+			<nav>
+				<div class="nav-wrapper green">
+					<ul id="nav-name" class="left">
+						<li><i class="large m-right m-left mdi-action-search"></i></li>
+						<li><a href="#" class="brand-logo">Sherlock</a></li>
+					</ul>
+					<ul id="nav-mobile" class="right hide-on-med-and-down">
+						<li><a class="active" href="/hunts">Hunts</a></li>
+						<li><a href="/settings">Settings</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+
+        <!-- Modal Structure -->
+                  
+
+		<div class="container">
+			<div class="row">
+				<div class="col offset-s0 offset-m0 m12 l8 offset-l2 s12">
+					<div class="card green darken-1">
+						<div class="card-content white-text">
+							<span class="card-title">My Hunts</span>
+							<ul class="collection cyan-text">
+                                <li class="collection-item modal-trigger" href="#clue1">Clue Name 1</li>
+                                <div id="clue1" class="modal">
+                                    <form id="submit">
+                                        <div class="black-text modal-content">
+                                            <h4>This is your clue</h4>
+                                            <p>This is some more info</p>
+                                            <br>
+                                            <div  class="row">
+                                                <label for="test1" class="col offset-l1 l4 m12 s12 btn btn-level waves-effect waves-light">Upload Image</label>
+                                                <input name="image" type="file" id="test1" capture="camera" href="#" style="display:none">
+                                                <div class="input-field col l6 m12 s12">
+                                                    <input name="caption" type="text" id="caption">
+                                                    <label for="caption">Caption (Optional)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="submit" class="modal-action modal-close waves-effect waves-green btn-flat">Send</button>
+                                            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+                                        </div>
+                                    </form>
+                                </div>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('.modal-trigger').leanModal();
+    });
+    $("#submit").submit(function(e) {
+        var fd = new FormData($("#submit")[0])
+        var xhr = new XMLHttpRequest()
+        xhr.open("POST","idunno")
+        xhr.send(fd)
+        e.preventDefault()
+    })
+    </script>
+
+</html>
