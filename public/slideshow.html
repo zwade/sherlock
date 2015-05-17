@@ -21,37 +21,53 @@
 				</div>
 			</nav>
 		</div>
-
+        <div class="center-align" style="position: absolute">
+            <div class="row" id="grid">
+            
+            </div>
+        </div>
        
         <div class="center-align">
             <div class="row">
                 <div class="col l4 offset-l4 m12 s12">
-                    <div class="slider" id="slider">
+                    <div class="slider m-slider" id="slider">
                         <ul class="slides" id="imgul">
-                            <li>
-                                <img src="http://lorempixel.com/580/250/nature/1"> <!-- random image -->
+                            <!--li>
+                                <img src="http://lorempixel.com/580/250/nature/1">
                                 <div class="caption center-align">
                                 <h3>This is our big Tagline!</h3>
                                 <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
                                 </div>
-                            </li>
+                            </li-->
                         </ul>
                     </div>
+                    <a class="btn waves-effect waves-light btn-flat cyan" onclick="swap()">Click Me</a>
                     <!--a class="waves-effect waves-light btn-flat cyan" onclick="fullscreen()">Fullscreen</a-->
                 </div>
             </div>
 		</div>
-	
+    	
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
     <script>
         /*function fullscreen() {
             document.getElementById('slider').className="slider fullscreen";
         }*/
+        function swap() {
+            if($('.m-card').css('opacity')==1) {
+                $('.m-card').css('opacity', 0);
+                $('#slider').css('opacity', 1);
+            }
+            else {
+                $('.m-card').css('opacity', 1);
+                $('#slider').css('opacity', 0);
+            }
+        }
         function addImage(url) {
             $("#imgul").append('<li><img src="'+url+'">');
+            $("#grid").append('<div class="col s4"> <div class="card m-card"> <div class="card-content"> <img src="'+url+'"> </div></div></div>');
         }
-        images=["http://lorempixel.com/580/250/nature/2", "http://lorempixel.com/580/250/nature/3"];
+        images=["http://lorempixel.com/580/250/nature/1","http://lorempixel.com/580/250/nature/2", "http://lorempixel.com/580/250/nature/3", "http://lorempixel.com/580/250/nature/3", "http://lorempixel.com/580/250/nature/3"];
         for (var image in images) {
             addImage(images[image]);
         }
