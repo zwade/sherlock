@@ -47,3 +47,9 @@ nav ul li:hover, nav ul li.active {
     margin-top: 7px;
     margin-left: 10px;
 }
+
+@media (max-width: 600px) {
+    .pipe-logo {
+        width: 44px;
+    }
+}
