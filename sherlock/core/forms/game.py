@@ -1,4 +1,5 @@
 from django import forms
+from django.utils import timezone
 from ..models import Submission, Clue, Hunt
 
 class SubmissionForm(forms.ModelForm):
@@ -23,11 +24,13 @@ class HuntForm(forms.ModelForm):
     def __init__(self, data=None, *args, **kwargs):
         if data:
             if 'start_time' in data:
-                data['start_time_0'] = data['start_time'].strftime(self.date_format)
-                data['start_time_1'] = data['start_time'].strftime(self.time_format)
+                normdate = data['start_time'].astimezone(timezone.get_current_timezone())
+                data['start_time_0'] = normdate.strftime(self.date_format)
+                data['start_time_1'] = normdate.strftime(self.time_format)
             if 'end_time' in data:
-                data['end_time_0'] = data['end_time'].strftime(self.date_format)
-                data['end_time_1'] = data['end_time'].strftime(self.time_format)
+                normdate = data['end_time'].astimezone(timezone.get_current_timezone())
+                data['end_time_0'] = normdate.strftime(self.date_format)
+                data['end_time_1'] = normdate.strftime(self.time_format)
         super(HuntForm, self).__init__(data, *args, **kwargs)
 
 class ClueForm(forms.ModelForm):
