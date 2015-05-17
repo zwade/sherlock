@@ -16,7 +16,7 @@ class Hunt(models.Model):
     photo = models.ImageField(blank=True)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
-    slug = models.CharField(max_length=8, unique=True, blank=True)
+    slug = models.SlugField(max_length=8, unique=True, blank=True)
 
     def save(self):
         if not self.slug:
