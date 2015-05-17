@@ -31,7 +31,7 @@ if DEBUG:
     SECRET_KEY = '$k9m+%8d6=6gbkkqir11ma=565e3@-*9%)s%5t9l1wopz%mdbj'
 
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "sherlockga.me"]
 INTERNAL_IPS = ["127.0.0.1"]
 
 
@@ -101,15 +101,12 @@ WSGI_APPLICATION = 'sherlock.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-else:
-    raise Exception("Do this")
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -129,10 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
-if DEBUG:
-    STATICFILE_DIRS = [
-        os.path.join(BASE_DIR, 'sherlock/core/static')
-    ]
+STATICFILE_DIRS = [
+    os.path.join(BASE_DIR, 'sherlock/core/static')
+]
 
 STATIC_ROOT = os.path.join(BASE_DIR, "collected_static")
 
