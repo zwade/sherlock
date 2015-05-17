@@ -26,3 +26,10 @@ body {
     position: inherit;
     left: inherit;
 }
+
+
+@media (max-width: 500px) {
+    .container {
+        padding: 10px 0;
+    }
+}

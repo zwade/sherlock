@@ -1,4 +1,24 @@
-{% extends 'base.html' %}
+{% extends 'logged_in_base.html' %}
+{% load staticfiles %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/vendor/lolliclock.js' %}"></script>
+    <script>
+        $(function(){
+            $('.timepicker').lolliclock();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 15
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block style %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/vendor/lolliclock.css' %}" />
+{% endblock %}
 
 {% block body %}
 <div class="container">
@@ -23,14 +43,26 @@
                         </div>
                         <br>
                         <div class="row">
-                            <div class="white-text input-field col s10 m10 l5">
-                                <input class="datepicker" type="date" name="{{ form.start.name }}" value="{{ form.start.value }}" id="date_start">
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="datepicker" type="date" name="{{ form.start_time.name }}_0" value="{{ form.start_time.value.date }}" id="date_start">
                                 <label class="white-text" for="date_start">Start Date</label>
                             </div>
-                            <div class="white-text col s2 center"> <div class="btn-level">to</div> </div>
-                            <div class="white-text input-field col s10 m10 l5">
-                                <input class="datepicker" type="date" name="{{ form.end.name }}" value="{{ form.end.value }}" id="date_end">
+
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="timepicker" type="text" name="{{ form.start_time.name }}_1" value="{{ form.start_time.value.time }}" id="time_start">
+                                <label class="white-text" for="time_start">Start Time</label>
+                            </div>
+
+                            <br>
+                            <div class="white-text col s12 center"> <div class="btn-level">to</div> </div>
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="datepicker" type="date" name="{{ form.end_time.name }}_0" value="{{ form.end_time.value.date }}" id="date_end">
                                 <label class="white-text" for="date_end">End Date</label>
+                            </div>
+
+                            <div class="white-text input-field col s12 m12 l6">
+                                <input class="timepicker" type="text" name="{{ form.end_time.name }}_1" value="{{ form.end_time.value.time }}" id="time_end">
+                                <label class="white-text" for="time_end">End Time</label>
                             </div>
                         </div>
                         <div class="row">
@@ -44,14 +76,4 @@
         </div>
     </form>
 </div>
-{% endblock %}
-
-{% block scripts %}
-    {{ block.super }}
-    <script>
-        $('.datepicker').pickadate({
-            selectMonths: true,
-            selectYears: 15
-        });
-    </script>
 {% endblock %}
