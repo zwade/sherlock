@@ -1,5 +1,6 @@
 import logging
 from django.contrib.auth import forms
+from django.contrib.auth.models import User
 
 logger = logging.getLogger(__name__)
 
@@ -18,4 +19,6 @@ class AuthenticationForm(forms.AuthenticationForm):
 
 
 class UserCreationForm(forms.UserCreationForm):
-    pass
+    class Meta: 
+        model = User
+        fields = ('email', 'first_name', 'last_name', 'username', 'password1', 'password2') 

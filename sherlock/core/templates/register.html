@@ -3,65 +3,69 @@
 {% block body %}
 <div class="center-align">
     <div class="row">
-    <div class="col l4 offset-l4 m12 s12">
-        <div class="card green darken 1">
-        <br>
-        <span class="card-title">Register</span>
-        <div class="card-content">
-            <form>
-            <div class="row">
-                <div class="card m-lcard">
-                <div class="input-field m-input">
-                <input id="first_name" type="text">
-                <label for="first_name">First Name</label>
-                </div>
-                </div>
-                <div class="card m-rcard">
-                <div class="input-field m-input">
-                <input id="last_name" type="text">
-                <label for="last_name">Last Name</label>
-                </div>
-                </div>
+        <div class="col l4 offset-l4 m12 s12">
+            <form action="/register" method="POST">
+                {% csrf_token %}
+                <div class="card green darken 1">
+                    <br>
+                    <span class="card-title">Register</span>
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="card m-lcard">
+                                    <div class="input-field m-input">
+                                        <input name="firstname" id="first_name" type="text">
+                                        <label for="first_name">First Name</label>
+                                    </div>
+                                </div>
+                                <div class="card m-rcard">
+                                    <div class="input-field m-input">
+                                        <input name="lastname" id="last_name" type="text">
+                                        <label for="last_name">Last Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="email" name="email" type="email" class="validate">
+                                        <label for="email">Email Address</label>
+                                    </div>
+                                </div>	
+                            </div>
+                            <div class="card">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="username" name="username" type="text">
+                                        <label for="username">Username</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="password" type="password" name="password1">
+                                        <label for="password">Password</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input id="password_confirm" type="password" name="password2">
+                                        <label for="password_confirm">Confirm Password</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% for field in form %}
+                        {{ field.name }}
+                        {% endfor %}
+                        <div class="card-action">
+                            <button type="submit" class="waves-effect waves-light btn-flat cyan white-text">Register</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="card">
-            <div class="row">
-                <div class="input-field col s12">
-                <input id="email" type="email" class="validate">
-                <label for="email">Email Address</label>
-                </div>
-            </div>  
-            </div>
-            <div class="card">
-            <div class="row">
-                <div class="input-field col s12">
-                <input id="username" type="text">
-                <label for="username">Username</label>
-                </div>
-            </div>
-            </div>
-            <div class="card">
-            <div class="row">
-                <div class="input-field col s12">
-                <input id="password" type="password">
-                <label for="password">Password</label>
-                </div>
-            </div>
-            </div>
-            <div class="card">
-            <div class="row">
-                <div class="input-field col s12">
-                <input id="password_confirm" type="password">
-                <label for="password_confirm">Confirm Password</label>
-                </div>
-            </div>
-            </div>
-            </form>
         </div>
-        <div class="card-action">
-            <a class="waves-effect waves-light btn-flat cyan white-text">Register</a>
-        </div>
-        </div>
-    </div>
-    </div>
 </div>
 {% endblock %}

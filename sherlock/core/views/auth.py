@@ -35,13 +35,14 @@ class RegisterView(View):
 
     def post(self, request):
         form = UserCreationForm(request.POST)
+        print(form)
 
         if form.is_valid():
             form.save()
 
             # Login the created user
 
-            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data('password'))
+            user = authenticate(username=form.cleaned_data['username'], password=form.cleaned_data['password1'])
             login(request, user)
 
             return redirect("index")
