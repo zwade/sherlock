@@ -18,8 +18,8 @@
                                     </tr>
                                 </thead>
                                 <tbody id="body">
-                                {% for k,v in scores %}
-                                <tr><td>{{ k }}</td><td>{{ v }}</td></tr>
+                                {% for user in scores %}
+                                <tr><td>{{ user.username }}</td><td>{{ user.score }}</td></tr>
                                 {% endfor %}
 
                                 </tbody>

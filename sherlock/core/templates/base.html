@@ -22,9 +22,12 @@
                 <div class="nav-wrapper green">
                         <ul id="nav-name" class="left">
                             <li><img class="pipe-logo" src="{% static 'img/pipe.png' %}" alt=""></li>
-                            <li><a href="{% url 'index' %}" class="brand-logo">Sherlock</a></li>
+                            <li><a href="{% if hunt and request.resolver_match.view_name != 'view_hunt' %}{% url 'view_hunt' hunt.slug %}{% else %}{% url 'index' %}{% endif %}" class="brand-logo">Sherlock</a></li>
                         </ul>
                         <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        {% if hunt %}
+                            <li><a href="{% url 'view_hunt' hunt.slug %}">Hunt</a></li>
+                        {% endif %}
                         {% if request.user.is_authenticated %}
                             <li><a href="{% url 'user_settings' %}">Settings</a></li>
                             <li><a href="{% url 'logout' %}">Logout</a></li>

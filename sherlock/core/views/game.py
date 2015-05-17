@@ -3,6 +3,8 @@ from django import http
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.forms.models import model_to_dict
+from django.contrib.auth.models import User
+from django.db.models import Sum
 from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
@@ -144,19 +146,13 @@ class Scoreboard(View):
         hunt = Hunt.objects.get(slug=slug)
         if not hunt.started():
             return redirect('view_hunt', slug=slug)
-        clues = Clue.objects.all().filter(hunt=hunt)
-        scores = {}
-        all_subs = Submission.objects.all() #Corwin don't hate me! I'm too tired to come up with a more elegent sol'n
-        for clue in clues:
-            sub = all_subs.filter(clue=clue)
-            for s in sub:
-                un = s.user.username
-                if un not in scores:
-                    scores[un] = 0
-                scores[un] += clue.points
-        sort = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)
-        print(sort)
-        return render(request, 'scoreboard.html', {'hunt': hunt, 'scores': sort})
+
+        found = ( User.objects.annotate(score=Sum('submissions__clue__points'))
+            .filter(submissions__clue__hunt__slug=slug, submissions__valid=True)
+            .order_by('-score')
+        )
+
+        return render(request, 'scoreboard.html', {'hunt': hunt, 'scores': found})
 
 class Slideshow(View):
     def get(self, request, slug):

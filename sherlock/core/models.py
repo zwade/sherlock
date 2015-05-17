@@ -56,5 +56,8 @@ class Submission(models.Model):
     clue = models.ForeignKey(Clue, related_name='submissions')
     user = models.ForeignKey(User, related_name='submissions')
 
+    # class Meta:
+        # unique_together = (('clue', 'user'),)
+
     def __str__(self):
         return "Submission by User '{}' to '{}'".format(self.user, self.clue)
