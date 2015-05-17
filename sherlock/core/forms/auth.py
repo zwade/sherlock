@@ -23,7 +23,7 @@ class UserCreationForm(forms.ModelForm):
     password1 = forms.CharField()
     password2 = forms.CharField()
 
-    class Meta: 
+    class Meta:
         model = User
         fields = ('email', 'first_name', 'last_name', 'username')
 

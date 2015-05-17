@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
-    
+
 {% block style %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/login.css' %}" />
@@ -19,13 +19,13 @@
                         <div class="row">
                             <div class="card m-lcard">
                             <div class="input-field m-input">
-                            <input name="{{ form.first_name.name }}" id="first_name" type="text" value="{{ form.first_name.value }}">
+                            <input name="{{ form.first_name.name }}" id="first_name" type="text" value="{% firstof form.first_name.value %}">
                             <label for="first_name">First Name</label>
                             </div>
                             </div>
                             <div class="card m-rcard">
                             <div class="input-field m-input">
-                            <input name="{{ form.last_name.name }}" id="last_name" type="text" value="{{ form.last_name.value }}">
+                            <input name="{{ form.last_name.name }}" id="last_name" type="text" value="{% firstof form.last_name.value %}">
                             <label for="last_name">Last Name</label>
                             </div>
                             </div>
@@ -33,15 +33,15 @@
                         <div class="card">
                         <div class="row">
                             <div class="input-field col s12">
-                            <input id="email" name="{{ form.email.name }}" type="email" class="validate" value="{{ form.email.value }}">
+                            <input id="email" name="{{ form.email.name }}" type="email" class="validate" value="{% firstof form.email.value %}">
                             <label for="email">Email Address</label>
                             </div>
-                        </div>  
+                        </div>
                         </div>
                         <div class="card">
                         <div class="row">
                             <div class="input-field col s12">
-                            <input id="username" name="{{ form.username.name }}" type="text" value="{{ form.username.value }}">
+                            <input id="username" name="{{ form.username.name }}" type="text" value="{% firstof form.username.value %}">
                             <label for="username">Username</label>
                             </div>
                         </div>
