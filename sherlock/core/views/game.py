@@ -8,6 +8,7 @@ from . import LoginRequiredMixin
 
 logger = logging.getLogger(__name__)
 
+
 class NewHuntView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'new_hunt.html', {'form': HuntForm()})
@@ -104,6 +105,7 @@ class SubmissionAjax(LoginRequiredMixin, View):
 
         return http.HttpResponse(status=400)
 
+
 class JoinHunt(LoginRequiredMixin, View):
     def post(self, request, slug):
         hunt = Hunt.objects.get(slug=slug)
@@ -112,3 +114,17 @@ class JoinHunt(LoginRequiredMixin, View):
         hunt.save()
 
         return redirect('view_clues', slug=slug)
+
+
+class DeleteClueAjax(LoginRequiredMixin, View):
+    def post(self, request, slug):
+        if "clue_id" in request.POST and request.POST["clue_id"].isdigit():
+            clue_id = int(request.POST["clue_id"])
+            try:
+                clue = Clue.objects.get(id=clue_id, hunt__owner=request.user)
+                clue.delete()
+                return http.HttpResponse(status=200)
+            except Clue.DoesNotExist:
+                raise http.Http404
+        else:
+            return http.HttpResponse(status=400)

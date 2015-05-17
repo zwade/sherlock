@@ -123,10 +123,29 @@
             }
         }
     }
-$("#newClue").submit(sub)
-$(function(){
-    $('.timepicker').lolliclock();
-})
+    $("#newClue").submit(sub)
+    $(function(){
+        $('.timepicker').lolliclock();
+    })
+
+    deleteClue = function(e) {
+        e = $(e).parent();
+        var id = $(e).data("clue-id");
+        $(e).css("display", "none");
+        $.ajax({
+            url: "{% url 'delete_clue' hunt.slug %}",
+            method: "POST",
+            data: {
+                "clue_id": id,
+                "csrfmiddlewaretoken": "{{ csrf_token }}"
+            }
+        }).success(function() {
+            $(e).remove();
+        }).fail(function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+            $(e).css("display", "");
+        })
+    };
 </script>
 {% endblock %}
 
