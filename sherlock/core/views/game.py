@@ -131,7 +131,11 @@ class DeleteClueAjax(LoginRequiredMixin, View):
 
 class Slideshow(View):
     def get(self, request, slug):
-        pass
+        hunt = Hunt.objects.get(slug=slug)
+        if not hunt.started():
+            return redirect('view_hunt', slug=slug)
+
+        return render(request, 'slideshow.html', {'hunt': hunt})
 
 class HuntImageStream(View):
     def get(self, request, slug):
@@ -140,4 +144,3 @@ class HuntImageStream(View):
         values = images.values_list('image', 'comment', 'clue__name')
 
         return http.HttpResponse(json.dumps(list(values)))
-
