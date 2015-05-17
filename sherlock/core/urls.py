@@ -24,5 +24,5 @@ urlpatterns = [
     url(r'^settings$', app.SettingsView.as_view(), name='user_settings'),
     url(r'^hunts/new$', game.NewHuntView.as_view(), name='new_hunt'),
     url(r'^hunts/(?P<slug>\w{8,})/', include(huntpatterns)),
-    url(r'^h/(?P<slug>\w{8,})$', game.HuntView.as_view(), name='view_hunt_short'),
+    url(r'^h/(?P<slug>\w{8,})/?$', game.HuntView.as_view(), name='view_hunt_short'),
 ]

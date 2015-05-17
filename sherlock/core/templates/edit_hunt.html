@@ -10,25 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col offset-l0 m12 l4 s12">
-            <div class="card green darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Participants</span>
-                    <br>
-                    Invite friends with this link:
-                    <input type="text" disabled class="grey-text text-lighten-2" value="{{ request.META.HTTP_HOST }}{% url 'view_hunt_short' hunt.slug %}">
-
-                    <br>
-                    {% if hunt.participants.all %}
-                        <div class="collection">
-                            {% for u in hunt.participants.all %}
-                                <a href="#" class="collection-item cyan-text">{{ u.username|capfirst }}</a>
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        No participants yet.
-                    {% endif %}
-                </div>
-            </div>
+            {% include 'participants.html' %}
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Settings</span>
