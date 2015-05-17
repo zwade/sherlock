@@ -7,7 +7,7 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">Settings</span>
-                    <form action="/hunts/update" method="POST">
+                    <form action="{% url 'edit_hunt' hunt.slug %}" method="POST">
                         <div class="row">
                             <div class="col s12 input-field">
                                 <input name="{{ form.title.name }}" type="text" id="room_name" value="{{ form.title.value }}">
