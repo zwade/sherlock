@@ -11,7 +11,7 @@ huntpatterns = [
 
 urlpatterns = [
     url(r"^$", app.index_view, name="index"),
-    url(r"^login$", auth.LoginView.as_view()),
+    url(r"^login$", auth.LoginView.as_view(), name="login"),
     url(r"^logout$", auth.logout_view),
     url(r"^register$", auth.RegisterView.as_view()),
     url(r'^hunts/new$', game.NewHuntView.as_view()),
