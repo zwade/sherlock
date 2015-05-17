@@ -112,3 +112,7 @@ class JoinHunt(LoginRequiredMixin, View):
         hunt.save()
 
         return redirect('view_clues', slug=slug)
+
+class Slideshow(View):
+    def get(self, request):
+        pass

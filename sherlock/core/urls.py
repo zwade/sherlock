@@ -5,6 +5,7 @@ from .views import game
 
 huntpatterns = [
     url(r'^$', game.HuntView.as_view(), name='view_hunt'),
+    url(r'^slideshow$', game.Slideshow.as_view(), name='view_hunt_slideshow'),
     url(r'^join$', game.JoinHunt.as_view(), name='join_hunt'),
     url(r'^edit$', game.EditHuntView.as_view(), name='edit_hunt'),
     url(r'^clues/new$', game.NewClueAjax.as_view(), name='add_clue'),
