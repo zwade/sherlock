@@ -12,6 +12,9 @@
                     <div class="card-body">
                         {{ hunt.description }}
                     </div>
+                    <div class="progress" style="display: none">
+                        <div class="indeterminate"></div>
+                    </div>
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
                             <li class="collection-item modal-trigger {% if clue.solved %}clue-solved grey lighten-2{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">{{ clue.name }}</li>
@@ -56,6 +59,7 @@
         var clueinp = $('#clue-id')
         var cluetit = $('#clue-title')
         var cluetxt = $('#clue-text')
+        var progressBar = $('.progress')
         $('.modal-trigger').on('click', function(e) {
             var $el = $(e.target)
             clueinp.val($el.data('clue'))
@@ -63,17 +67,27 @@
             cluetxt.text($el.data('text'))
             modal.openModal()
         })
-        form.submit(function(e) {
-            var fd = new FormData(form[0])
-            var xhr = new XMLHttpRequest()
-            var id = $('#clue-id').val()
-            xhr.open("POST", "{% url 'submit_image' hunt.slug %}")
-            xhr.send(fd)
-            xhr.onload = function() {
-                if (xhr.status == 200) {
-                    $('li[data-clue="'+id+'"]').addClass("grey lighten-2 clue-solved")
-                }
-            }
+        form.on('submit', function(e) {
+            var fd = new FormData(e.target)
+            var clueId = $('#clue-id').val()
+            var currentClue = $('li[data-clue="'+clueId+'"]')
+            currentClue.addClass('grey lighten-2 clue-solved')
+            progressBar.show()
+            $.ajax({
+                url: "{% url 'submit_image' hunt.slug %}",
+                type: "POST",
+                data: fd,
+                processData: false,
+                cache: false,
+                contentType: false,
+            })
+            .fail(function() {
+                currentClue.removeClass('grey lighten-2 clue-solved')
+                progressBar.hide()
+            })
+            .success(function() {
+                progressBar.hide()
+            })
             $('#captured').val('')
             $('#caption').val('')
             e.preventDefault()
