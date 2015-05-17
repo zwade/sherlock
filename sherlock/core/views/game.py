@@ -141,6 +141,6 @@ class HuntImageStream(View):
     def get(self, request, slug):
         images = Submission.objects.select_related('clue').filter(clue__hunt__slug=slug)
 
-        values = images.values_list('image', 'comment', 'clue__name')
+        values = [(x.image.url, x.comment, x.clue.name) for x in images]
 
-        return http.HttpResponse(json.dumps(list(values)))
+        return http.HttpResponse(json.dumps(values))

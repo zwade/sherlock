@@ -134,6 +134,9 @@ if DEBUG:
         os.path.join(BASE_DIR, 'sherlock/core/static')
     ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
