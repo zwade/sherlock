@@ -7,7 +7,7 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">{{ hunt.name }}</span>
-                    <div class="grey-text text-lighten-2">{{ hunt.owner }}</div>
+                    <div class="grey-text text-lighten-2">{{ hunt.owner|capfirst }}</div>
                     <div class="grey-text text-lighten-2">{{ hunt.start_time }} &ndash; {{ hunt.end_time }}</div>
                     <div class="card-body">
                         {{ hunt.description }}
@@ -22,7 +22,7 @@
                 {% elif joined and hunt.started %}
                     <a href="{% url 'view_clues' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Participate</a>
                 {% elif joined %}
-                    <a href="" class="cyan waves-effect waves-light btn col s12">Wait for start...</a>                
+                    <a href="" class="cyan waves-effect waves-light btn col s12">Wait for start...</a>
                 {% else %}
                     <a href="{% url 'join_hunt' hunt.slug %}" class="cyan waves-effect waves-light btn col s12">Join this Hunt</a>
                 {% endif %}
