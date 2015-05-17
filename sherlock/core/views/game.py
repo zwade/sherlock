@@ -58,7 +58,7 @@ class NewClueAjax(LoginRequiredMixin, View):
 
             return render(request, 'clue_row.html', {'clue': clue})
 
-        raise render(request, 'clue_form.html', {'clue': form}, status=400)
+        return render(request, 'clue_form.html', {'clue': form}, status=400)
 
 
 class HuntView(View):
