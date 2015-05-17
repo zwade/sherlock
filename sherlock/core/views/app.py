@@ -9,10 +9,8 @@ from . import LoginRequiredMixin
 logger = logging.getLogger(__name__)
 
 
+@login_required
 def index_view(request):
-    if not request.user.is_authenticated():
-        return render(request, "splash.html")
-
     joined_hunts = request.user.joined_hunts.all()
     active_hunts = [h for h in joined_hunts if h.active]
     inactive_hunts = [h for h in joined_hunts if not h.active]

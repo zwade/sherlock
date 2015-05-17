@@ -2,12 +2,14 @@ import logging
 from django import http
 from django.shortcuts import render, redirect
 from django.views.generic import View
+from django.forms.models import model_to_dict
 from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
 import json
 
 logger = logging.getLogger(__name__)
+
 
 class NewHuntView(LoginRequiredMixin, View):
     def get(self, request):
@@ -45,7 +47,9 @@ class EditHuntView(LoginRequiredMixin, View):
         if hunt.owner != request.user:
             return redirect('view_hunt', slug=slug)
 
-        return render(request, 'edit_hunt.html', {'edit': HuntForm(hunt), 'clue': ClueForm(), 'hunt': hunt, 'clues': hunt.clues.all()})
+        form = HuntForm(model_to_dict(hunt))
+
+        return render(request, 'edit_hunt.html', {'edit': form, 'clue': ClueForm(), 'hunt': hunt, 'clues': hunt.clues.all()})
 
 
 class NewClueAjax(LoginRequiredMixin, View):
@@ -105,6 +109,7 @@ class SubmissionAjax(LoginRequiredMixin, View):
 
         return http.HttpResponse(status=400)
 
+
 class JoinHunt(LoginRequiredMixin, View):
     def get(self, request, slug):
         hunt = Hunt.objects.get(slug=slug)
@@ -113,6 +118,19 @@ class JoinHunt(LoginRequiredMixin, View):
         hunt.save()
 
         return redirect('view_clues', slug=slug)
+
+class DeleteClueAjax(LoginRequiredMixin, View):
+    def post(self, request, slug):
+        if "clue_id" in request.POST and request.POST["clue_id"].isdigit():
+            clue_id = int(request.POST["clue_id"])
+            try:
+                clue = Clue.objects.get(id=clue_id, hunt__owner=request.user)
+                clue.delete()
+                return http.HttpResponse(status=200)
+            except Clue.DoesNotExist:
+                raise http.Http404
+        else:
+            return http.HttpResponse(status=400)
 
 class Slideshow(View):
     def get(self, request, slug):
@@ -126,6 +144,9 @@ class HuntImageStream(View):
     def get(self, request, slug):
         images = Submission.objects.select_related('clue').filter(clue__hunt__slug=slug)
 
-        values = images.values_list('image', 'comment', 'clue__name')
+        #values = images.values_list('image', 'comment', 'clue__name')
 
-        return http.HttpResponse(json.dumps(list(values)))
+        #return http.HttpResponse(json.dumps(list(values)))
+        values = [(x.image.url, x.comment, x.clue.name) for x in images]
+
+        return http.HttpResponse(json.dumps(values))
