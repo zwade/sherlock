@@ -34,8 +34,8 @@ body {
     }
 }
 
-nav {
-    margin-bottom: 30px;
+.header {
+    margin-bottom: 15px;
 }
 
 nav ul li:hover, nav ul li.active {
