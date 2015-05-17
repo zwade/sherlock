@@ -1,0 +1,22 @@
+<div class="card green darken-1">
+    <div class="card-content white-text">
+        <span class="card-title">Participants</span>
+        <br>
+        Invite your friends!
+        <br>
+        Share Link: <a class="amber-text" href="{% url 'view_hunt_short' hunt.slug %}">{{ request.META.HTTP_HOST }}{% url 'view_hunt_short' hunt.slug %}</a>
+        <br>
+        <a class="white-text" href="https://twitter.com/intent/tweet?text={% filter urlencode %}Come on a scavenger hunt with me on Sherlock! {{ hunt.name|truncatechars:69 }}{% endfilter %} {{ request.META.HTTP_HOST|urlencode }}{% url 'view_hunt_short' hunt.slug %}"><i class="fa fa-twitter"></i> Tweet Your Scavenger Hunt</a>
+
+        <br>
+        {% if hunt.participants.all %}
+            <div class="collection">
+                {% for u in hunt.participants.all %}
+                    <div class="collection-item black-text">{{ u.username|capfirst }}</div>
+                {% endfor %}
+            </div>
+        {% else %}
+            No participants yet.
+        {% endif %}
+    </div>
+</div>

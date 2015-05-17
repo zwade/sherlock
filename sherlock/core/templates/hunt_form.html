@@ -2,38 +2,38 @@
     <span class="card-title">New Hunt</span>
     <div class="row">
         <div class="col s12 input-field">
-            <input type="text" name="{{ form.name.name }}" value="{% firstof form.name.value %}" id="room_name">
-            <label class="white-text" for="room_name">Hunt Name</label>
+            <input type="text" name="{{ form.name.name }}" value="{% firstof form.name.value %}" id="hunt-name">
+            <label class="white-text" for="hunt-name">Hunt Name</label>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <textarea id="clue_desc" name="{{ form.description.name }}" length="120" class="materialize-textarea">{% firstof form.description.value %}</textarea>
-            <label for="clue_desc" class="white-text">Description (Optional)</label>
+            <textarea id="hunt-description" name="{{ form.description.name }}" length="120" class="materialize-textarea">{% firstof form.description.value %}</textarea>
+            <label for="hunt-description" class="white-text">Description (Optional)</label>
         </div>
     </div>
     <br>
     <div class="row">
         <div class="white-text input-field col s12 m12 l6">
-            <input class="datepicker" type="date" name="{{ form.start_time.name }}_0" value="{% firstof form.start_time.value.0 %}" id="date_start">
-            <label class="white-text" for="date_start">Start Date</label>
+            <input class="datepicker" type="date" name="{{ form.start_time.name }}_0" value="{% firstof form.start_time.value.0 %}" id="hunt-start-date">
+            <label class="white-text" for="hunt-start-date">Start Date</label>
         </div>
 
         <div class="white-text input-field col s12 m12 l6">
-            <input class="timepicker" type="text" name="{{ form.start_time.name }}_1" value="{% firstof form.start_time.value.1 %}" id="time_start">
-            <label class="white-text" for="time_start">Start Time</label>
+            <input class="timepicker" type="text" name="{{ form.start_time.name }}_1" value="{% firstof form.start_time.value.1 %}" id="hunt-start-time">
+            <label class="white-text" for="hunt-start-time">Start Time</label>
         </div>
 
         <br>
         <div class="white-text col s12 center"> <div class="btn-level">to</div> </div>
         <div class="white-text input-field col s12 m12 l6">
-            <input class="datepicker" type="date" name="{{ form.end_time.name }}_0" value="{% firstof form.end_time.value.0 %}" id="date_end">
-            <label class="white-text" for="date_end">End Date</label>
+            <input class="datepicker" type="date" name="{{ form.end_time.name }}_0" value="{% firstof form.end_time.value.0 %}" id="hunt-end-date">
+            <label class="white-text" for="hunt-end-date">End Date</label>
         </div>
 
         <div class="white-text input-field col s12 m12 l6">
-            <input class="timepicker" type="text" name="{{ form.end_time.name }}_1" value="{% firstof form.end_time.value.1 %}" id="time_end">
-            <label class="white-text" for="time_end">End Time</label>
+            <input class="timepicker" type="text" name="{{ form.end_time.name }}_1" value="{% firstof form.end_time.value.1 %}" id="hunt-end-time">
+            <label class="white-text" for="hunt-end-time">End Time</label>
         </div>
     </div>
     <div class="row">
