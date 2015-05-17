@@ -15,17 +15,9 @@
         <div class="col l8 offset-l2 m12 s12">
             <div class="slider fullscreen m-slider" id="slider">
                 <ul class="slides" id="imgul">
-                    <!--li>
-                        <img src="http://lorempixel.com/580/250/nature/1">
-                        <div class="caption center-align">
-                        <h3>This is our big Tagline!</h3>
-                        <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-                        </div>
-                    </li-->
                 </ul>
             </div>
             <a id="swapper" class="btn waves-effect waves-light btn-flat cyan" onclick="swap()">Slideshow</a>
-            <!--a class="waves-effect waves-light btn-flat cyan" onclick="fullscreen()">Fullscreen</a-->
         </div>
     </div>
 </div>
@@ -62,26 +54,23 @@
     function addImage(url,title, tag) {
         
         cols = $(".gc").toArray()
-        mino = null
+        mino = $(cols[0])
         minv = 1000
         for (c in cols) {
             var obj = $(cols[c])
             if (obj.height() < minv) {
-                console.log(obj)
                 mino = obj
                 minv = obj.height()
             }
         }
         $("#imgul").append('<li><img src="'+url+'"><div class="caption center-align"><h3>'+title+'</h3><h5 class="light grey-text text-lighten-3">'+tag);
-        //console.log(tag);
-        mino.append('<div class="card-image m-card"> <div class="card-content"> <img src="'+url+'"> </div></div>');
-        //$('.slider').slider({full_width:true});
+        mino.append('<div class="card-image m-card"> <div class="card-content"> <img class="materialboxed" src="'+url+'"> </div></div>');
     }
-    //submissions={{ hunt.values }}//[["http://lorempixel.com/580/250/nature/1","hello","world"],["http://lorempixel.com/580/250/nature/2","i am","so tired"],[ "http://lorempixel.com/580/250/nature/3","i could use","some serious sleep"]]
     $(document).ready(function() {
-            setInterval(function() {poll()},6e4)
+            setInterval(function() {poll()},6e3)
             poll()
     })
+    var tmp = function() {$('.slider').slider({full_width:true});}
     var poll = function() {
         fetchList(function(res) {
             submissions = JSON.parse(res)
@@ -91,8 +80,9 @@
                     images.push(submissions[image][0])
                 }
             }
+            tmp()
+            tmp = function() {}
             //if (!firstpoll) {
-            $('.slider').slider({full_width:true});
             //    firstpoll=1;
             //}
             if (state) {
