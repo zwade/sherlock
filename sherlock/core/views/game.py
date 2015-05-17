@@ -108,6 +108,10 @@ class SubmissionAjax(LoginRequiredMixin, View):
 
             return http.HttpResponse()
 
+        print(form.errors)
+
+
+
         return http.HttpResponse(status=400)
 
 
