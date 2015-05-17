@@ -7,6 +7,9 @@
             <div class="card green darken-1">
                 <div class="card-content white-text">
                     <span class="card-title">{{ hunt.name }}</span>
+                    <br>
+                    <div class="grey-text text-lighten-2">{{ hunt.owner }}</div>
+                    {{ hunt.description }}
                     <ul class="collection cyan-text">
                         {% for clue in clues %}
                             <li class="collection-item modal-trigger {% if clue.solved %}clue-solved grey lighten-2{% endif %}" data-name="{{ clue.name }}" data-text="{{ clue.text }}" data-clue="{{ clue.id }}">{{ clue.name }}</li>
