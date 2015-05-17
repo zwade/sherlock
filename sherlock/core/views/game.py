@@ -5,6 +5,7 @@ from django.views.generic import View
 from ..models import Hunt, Clue, Submission
 from ..forms.game import SubmissionForm, HuntForm, ClueForm
 from . import LoginRequiredMixin
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -114,5 +115,14 @@ class JoinHunt(LoginRequiredMixin, View):
         return redirect('view_clues', slug=slug)
 
 class Slideshow(View):
-    def get(self, request):
+    def get(self, request, slug):
         pass
+
+class HuntImageStream(View):
+    def get(self, request, slug):
+        images = Submission.objects.select_related('clue').filter(clue__hunt__slug=slug)
+
+        values = images.values_list('image', 'comment', 'clue__name')
+
+        return http.HttpResponse(json.dumps(list(values)))
+
